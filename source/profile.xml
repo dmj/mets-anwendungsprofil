@@ -65,7 +65,7 @@
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="@OBJID"/>
+                                    <sch:assert test="@LABEL"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
