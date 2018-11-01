@@ -144,9 +144,9 @@
                             <testXML>
                                 <sch:rule context="mets:mets">
                                     <sch:assert
-                                        test="mets:fileSec/mets:fileGrp[@USE = 'MASTER'}/@ADMID"/>
+                                        test="mets:fileSec/mets:fileGrp[@USE = 'MASTER']/@ADMID"/>
                                     <sch:assert
-                                        test="mets:amdSec/mets:rightsMD[@ID = ../../mets:fileSec/mets:fileGrp[@USE = 'MASTER'}/@ADMID]"
+                                        test="mets:amdSec/mets:rightsMD[@ID = ../../mets:fileSec/mets:fileGrp[@USE = 'MASTER']/@ADMID]"
                                     />
                                 </sch:rule>
                             </testXML>
