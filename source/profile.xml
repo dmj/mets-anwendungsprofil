@@ -83,7 +83,7 @@
                     <test TESTLANGUAGE="SCHEMATRON">
                         <testWrap>
                             <testXML>
-                                <sch:rule content="mets:metsHdr">
+                                <sch:rule context="mets:metsHdr">
                                     <assert test="@CREATEDATE"/>
                                 </sch:rule>
                             </testXML>
