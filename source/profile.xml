@@ -178,7 +178,7 @@
                                     <sch:assert
                                         test="mets:fileSec/mets:fileGrp[@USE = 'MASTER']/mets:file/@ADMID"/>
                                     <sch:assert
-                                        test="mets:amdSec/mets:techMD[@ID = ../../mets:fileSec/mets:fileGrp[@USE = 'MASTER']/mets:file/@ADMID"
+                                        test="mets:amdSec/mets:techMD[@ID = ../../mets:fileSec/mets:fileGrp[@USE = 'MASTER']/mets:file/@ADMID]"
                                     />
                                 </sch:rule>
                             </testXML>
