@@ -1,0 +1,9 @@
+<description xmlns="http://www.jenitennison.com/xslt/xspec" schematron="../../source/profile.sch">
+  <scenario label="Testing restrictions of the outermost element">
+    <context>
+      <mets:mets xmlns:mets="http://www.loc.gov/METS/" OBJID="" LABEL=""/>
+    </context>
+    <expect-assert id="metsRootElement.assert.1" label="a non-empty @OBJID attribut is required"/>
+    <expect-assert id="metsRootElement.assert.2" label="a non-empty @LABEL attribut is required"/>
+  </scenario>
+</description>
