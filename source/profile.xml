@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="profile.xsl"?>
 <METS_Profile xmlns="http://www.loc.gov/METS_Profile/v2" xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mix="http://www.loc.gov/mix/v20"
+    xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mix="http://www.loc.gov/mix/v20" xmlns:mets="http://www.loc.gov/METS/"
     STATUS="provisional" REGISTRATION="unregistered">
     <URI LOCTYPE="URN" ASSIGNEDBY="local">urn:uuid:76806cce-4ca6-4154-88a5-991fd05ccdfa</URI>
     <title>METS Anwendungsprofil für Produkte der Massendigitalisierung der Herzog August Bibliothek Wolfenbüttel</title>
@@ -40,32 +41,22 @@
         <metsRootElement>
             <requirement>
                 <description>
-                    <html:p>Das Attribut @OBJID mit dem Identifikator des Objekts
-                        verpflichtend.</html:p>
+                    <html:p>Das Wurzelelement enthält den lokalen Identifikator des Objekts im @OBJID- und einen das Objekt identifizierenden Namen imd @LABEL-Attribut. Der Wert des @LABEL wird in der Regel aus dem Namen der besitzenden Einrichtung und der Signatur der Objektvorlage gebildet.</html:p>
+                    <html:p>
+                        <html:samp>&lt;mets:mets OBJID="drucke/textb-680-1" LABEL="Herzog August Bibliothek Wolfenbüttel, Textb. 680 (1)"&gt;</html:samp>
+                    </html:p>
                 </description>
                 <tests>
-                    <test TESTLANGUAGE="SCHEMATRON">
+                    <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="@OBJID"/>
-                                </sch:rule>
-                            </testXML>
-                        </testWrap>
-                    </test>
-                </tests>
-            </requirement>
-            <requirement>
-                <description>
-                    <html:p>Das Attribute @LABEL mit einem das Objekt identifizierenden Namen ist
-                        verpflichtend.</html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="SCHEMATRON">
-                        <testWrap>
-                            <testXML>
-                                <sch:rule context="mets:mets">
-                                    <sch:assert test="@LABEL"/>
+                                    <sch:assert test="normalize-space(@OBJID)" id="metsRootElement.assert.1">
+                                        Die Angabe eines lokalen Identifikators ist verpflichtend.
+                                    </sch:assert>
+                                    <sch:assert test="normalize-space(@LABEL)" id="metsRootElement.assert.2">
+                                        Die Angabe eines identifizierenden Namens ist verpflichtend.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -73,226 +64,6 @@
                 </tests>
             </requirement>
         </metsRootElement>
-        <metsHdr>
-            <requirement>
-                <description>
-                    <html:p> Das Attribut @CREATEDATE mit Datum und Uhrzeit der Erzeugung der
-                        METS-Datei ist verpflichtend. </html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="SCHEMATRON">
-                        <testWrap>
-                            <testXML>
-                                <sch:rule context="mets:metsHdr">
-                                    <assert test="@CREATEDATE"/>
-                                </sch:rule>
-                            </testXML>
-                        </testWrap>
-                    </test>
-                </tests>
-            </requirement>
-            <requirement>
-                <description>
-                    <html:p> Die Herzog August Bibliothek ist als Verwalter (CUSTODIAN) des
-                        digitalen Objekts aufgeführt. </html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="SCHEMATRON">
-                        <testWrap>
-                            <testXML>
-                                <sch:rule context="mets:metsHdr">
-                                    <assert
-                                        test="mets:agent[@ROLE = 'CUSTODIAN'][@TYPE = 'ORGANIZATION']"/>
-                                    <assert
-                                        test="mets:agent/mets:name = 'Herzog August Bibliothek Wolfenbüttel'"
-                                    />
-                                </sch:rule>
-                            </testXML>
-                        </testWrap>
-                    </test>
-                </tests>
-            </requirement>
-        </metsHdr>
-        <fileSec>
-            <requirement>
-                <description>
-                    <html:p> Die Images der das digitale Objekt konstituierenden Seiten sind in
-                        einer mets:fileGrp mit dem @USE-Attribut "MASTER" gruppiert. </html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="SCHEMATRON">
-                        <testWrap>
-                            <testXML>
-                                <sch:rule context="mets:mets">
-                                    <sch:assert test="mets:fileSec/mets:fileGrp[@USE = 'MASTER']"/>
-                                    <sch:assert
-                                        test="count(mets:fileSec/mets:fileGrp[@USE = 'MASTER'])"/>
-                                </sch:rule>
-                            </testXML>
-                        </testWrap>
-                    </test>
-                </tests>
-            </requirement>
-            <requirement>
-                <description>
-                    <html:p>Die mets:fileGrp der das digitale Objekt konstituierenden Seiten ist mit
-                        administrativen Metadaten verknüpft.</html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="SCHEMATRON">
-                        <testWrap>
-                            <testXML>
-                                <sch:rule context="mets:mets">
-                                    <sch:assert
-                                        test="mets:fileSec/mets:fileGrp[@USE = 'MASTER']/@ADMID"/>
-                                    <sch:assert
-                                        test="mets:amdSec/mets:rightsMD[@ID = ../../mets:fileSec/mets:fileGrp[@USE = 'MASTER']/@ADMID]"
-                                    />
-                                </sch:rule>
-                            </testXML>
-                        </testWrap>
-                    </test>
-                </tests>
-            </requirement>
-            <requirement>
-                <description>
-                    <html:p> Die administrativen Metadaten der das digitale Objekt konstituierenden
-                        Seiten sind in einem kanonischen RDF/XML ausgedrückt. </html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="NVDL">
-                        <testString>#fixme</testString>
-                    </test>
-                </tests>
-            </requirement>
-            <requirement>
-                <description>
-                    <html:p> Für jede das digitale Objekt konstituierende Seite sind technische
-                        Metadaten hinterlegt. </html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="SCHEMATRON">
-                        <testWrap>
-                            <testXML>
-                                <sch:rule context="mets:mets">
-                                    <sch:assert
-                                        test="mets:fileSec/mets:fileGrp[@USE = 'MASTER']/mets:file/@ADMID"/>
-                                    <sch:assert
-                                        test="mets:amdSec/mets:techMD[@ID = ../../mets:fileSec/mets:fileGrp[@USE = 'MASTER']/mets:file/@ADMID]"
-                                    />
-                                </sch:rule>
-                            </testXML>
-                        </testWrap>
-                    </test>
-                </tests>
-            </requirement>
-            <requirement>
-                <description>
-                    <html:p> Die administrativen Metadaten der das digitale Objekt konstituierenden
-                        Seiten sind in NISO MIX ausgedrückt. </html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="NVDL">
-                        <testString>#fixme</testString>
-                    </test>
-                </tests>
-            </requirement>
-            <requirement>
-                <description>
-                    <html:p>Die administrativen Metadaten der das digitale Objekt konstituierenden
-                        Seiten müssen die Bilddimensionen enthalten.</html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="SCHEMATRON">
-                        <testWrap>
-                            <testXML>
-                                <sch:rule
-                                    context="mets:techMD[@ID = ../../mets:fileSec/mets:fileGrp[@USE = 'MASTER']/mets:file/@ADMID]">
-                                    <sch:assert
-                                        test="mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics[mix:imageWidth and mix:imageHeight]"
-                                    />
-                                </sch:rule>
-                            </testXML>
-                        </testWrap>
-                    </test>
-                </tests>
-            </requirement>
-        </fileSec>
-        <structMap>
-            <requirement>
-                <description>
-                    <html:p>Die physische Struktur der Objektvorlage ist in einer mets:structMap
-                        beschrieben, deren @TYPE-Attribute mit dem Wert PHYSICAL belegt ist und deren 
-                        Kind ein mets:div-Element mit dem @TYPE-Attribut physSequence ist.</html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="SCHEMATRON">
-                        <testWrap>
-                            <testXML>
-                                <sch:rule context="mets:mets">
-                                    <sch:assert test="mets:structMap[@TYPE = 'PHYSICAL']"/>
-                                    <sch:assert test="count(mets:structMap[@TYPE = 'PHYSICAL']) = 1"
-                                    />
-                                    <sch:assert test="mets:structMap[@TYPE = 'PHYSICAL']/mets:div[@TYPE = 'physSequence']"/>
-                                </sch:rule>
-                            </testXML>
-                        </testWrap>
-                    </test>
-                </tests>
-            </requirement>
-            <requirement>
-                <description>
-                    <html:p>
-                        Jedes materielles Element der physischen Struktur ist als mets:div mit dem @TYPE page definiert und mit einer das digitale Objekt konstituierende Seite verbunden.
-                    </html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="SCHEMATRON">
-                        <testWrap>
-                            <testXML>
-                                <sch:rule context="mets:mets/mets:structMap[@TYPE = 'PHYSICAL']/mets:div[@TYPE = 'physSequence']">
-                                    <sch:assert test="empty(mets:div[@TYPE != 'page'])"/>
-                                    <sch:assert test="empty(mets:div/mets:fptr[@FILEID != ../../mets:fileSec/mets:fileGrp[@USE = 'MASTER']/mets:file/@ID])"/>
-                                </sch:rule>
-                            </testXML>
-                        </testWrap>
-                    </test>
-                </tests>
-            </requirement>
-            <requirement>
-                <description>
-                    <html:p>Die logische Struktur der Objektvorlage ist in einer mets:structMap
-                        beschrieben, deren @TYPE-Attribute mit dem Wert LOGICAL belegt ist.</html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="SCHEMATRON">
-                        <testWrap>
-                            <testXML>
-                                <sch:rule context="mets:mets">
-                                    <sch:assert test="mets:structMap[@TYPE = 'LOGICAL']"/>
-                                    <sch:assert test="count(mets:structMap[@TYPE = 'LOGICAL']) = 1"
-                                    />
-                                </sch:rule>
-                            </testXML>
-                        </testWrap>
-                    </test>
-                </tests>
-            </requirement>
-            <requirement>
-                <description>
-                    <html:p> Die deskriptive Metadaten der Objektstrukturen werden in
-                        mets:dmdSec-Abschnitten als kanonische RDF/XML-Datensätze geführt. Die
-                        zulässigen Eigenschaften der Struktur sind in der <html:a
-                            href="#diglib-struct">Strukturdatenontologie</html:a> definiert.
-                    </html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="#fixme">
-                        <testString>#fixme</testString>
-                    </test>
-                </tests>
-            </requirement>
-        </structMap>
     </structural_requirements>
     <technical_requirements/>
     <tool/>
