@@ -189,7 +189,7 @@
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="exists(mets:structLink/mets:smLink[@xlink:from = /mets:mets/mets:structMap[@TYPE = 'PHYSICAL']/mets:div/mets:div/@ID][xlink:to = /mets:mets/mets:structMap[@TYPE = 'LOGICAL']//mets:div/@ID])" id="structLink.assert.1">
+                                    <sch:assert test="exists(mets:structLink/mets:smLink[@xlink:from = /mets:mets/mets:structMap[@TYPE = 'PHYSICAL']/mets:div/mets:div/@ID][@xlink:to = /mets:mets/mets:structMap[@TYPE = 'LOGICAL']//mets:div/@ID])" id="structLink.assert.1">
                                         Die Verbindung zwischen logischer und physischer Objektstruktur muss durch die Verknüpfung von der physischen zur logischen erfolgen. 
                                     </sch:assert>
                                 </sch:rule>
