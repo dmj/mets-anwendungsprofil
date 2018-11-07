@@ -28,6 +28,33 @@
           <xsl:value-of select="profile:abstract"/>
         </p>
         <xsl:apply-templates select="profile:contact"/>
+        <h2>Externe Schemata</h2>
+        <xsl:for-each select="profile:external_schema">
+          <h3><xsl:value-of select="profile:name"/></h3>
+          <xsl:if test="profile:URL">
+            <dl>
+              <dt>URL</dt>
+              <dd><xsl:value-of select="profile:URL"/></dd>
+            </dl>
+          </xsl:if>
+          <p><xsl:value-of select="profile:context"/></p>
+        </xsl:for-each>
+        <h2>Kontrolliertes Vokabular</h2>
+        <xsl:for-each select="profile:controlled_vocabularies/profile:vocabulary">
+          <h3>
+            <xsl:value-of select="profile:name"/>
+            <xsl:if test="profile:maintenance_agency">
+              <small> (<xsl:value-of select="profile:maintenance_agency"/>)</small>
+            </xsl:if>
+          </h3>
+          <xsl:if test="profile:URL">
+            <dl>
+              <dt>URL</dt>
+              <dd><xsl:value-of select="profile:URL"/></dd>
+            </dl>
+          </xsl:if>
+          <p><xsl:value-of select="profile:context"/></p>
+        </xsl:for-each>
         <h2>Strukturelle Anforderungen</h2>
         <xsl:apply-templates select="profile:structural_requirements"/>
       </body>
