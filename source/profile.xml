@@ -20,8 +20,8 @@
     <profile_context/>
     <external_schema>
         <name>Kanonisches RDF/XML administrativer Metadaten</name>
-        <URL>http://uri.hab.de/instance/schema/diglib-admmd</URL>
-        <context>Administrative Metadaten der das Objekt konstituirenden Dateien.</context>
+        <URL>http://uri.hab.de/instance/schema/diglib-rightsmd</URL>
+        <context>Administrative Metadaten der das Objekt konstituierenden Dateien.</context>
     </external_schema>
     <external_schema ID="diglib-struct">
         <name>Kanonisches RDF/XML deskriptiver Metadaten von Objektstrukturen</name>
