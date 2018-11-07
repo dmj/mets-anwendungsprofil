@@ -182,15 +182,15 @@
         <structLink>
             <requirement>
                 <description>
-                    <html:p>Die Verbindung zwischen logischer und physischer Objektstruktur ist in einer mets:structLink ausgedrückt, Elemente der physischen Elementen der logischen Struktur zuordnet.</html:p>
+                    <html:p>Die Verbindung zwischen logischer und physischer Objektstruktur ist in einer mets:structLink ausgedrückt, die Elemente der logischen Elementen der physischen Struktur zuordnet.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="exists(mets:structLink/mets:smLink[@xlink:from = /mets:mets/mets:structMap[@TYPE = 'PHYSICAL']/mets:div/mets:div/@ID][@xlink:to = /mets:mets/mets:structMap[@TYPE = 'LOGICAL']//mets:div/@ID])" id="structLink.assert.1">
-                                        Die Verbindung zwischen logischer und physischer Objektstruktur muss durch die Verknüpfung von der physischen zur logischen erfolgen. 
+                                    <sch:assert test="exists(mets:structLink/mets:smLink[@xlink:to = /mets:mets/mets:structMap[@TYPE = 'PHYSICAL']/mets:div/mets:div/@ID][@xlink:from = /mets:mets/mets:structMap[@TYPE = 'LOGICAL']//mets:div/@ID])" id="structLink.assert.1">
+                                        Die Verbindung zwischen logischer und physischer Objektstruktur muss durch die Verknüpfung von der logischen zur physischen erfolgen. 
                                     </sch:assert>
                                 </sch:rule>
                             </testXML>
