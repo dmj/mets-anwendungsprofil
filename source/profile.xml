@@ -2,6 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="profile.xsl"?>
 <METS_Profile xmlns="http://www.loc.gov/METS_Profile/v2" xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mix="http://www.loc.gov/mix/v20" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
     xmlns:mets="http://www.loc.gov/METS/" STATUS="provisional" REGISTRATION="unregistered">
     <URI LOCTYPE="URN" ASSIGNEDBY="local">urn:uuid:76806cce-4ca6-4154-88a5-991fd05ccdfa</URI>
     <title>METS Anwendungsprofil für Produkte der Massendigitalisierung</title>
@@ -19,16 +20,18 @@
     <profile_context/>
     <external_schema>
         <name>Kanonisches RDF/XML administrativer Metadaten</name>
-        <context>/mets/dmdSec/mdWrap/xmlData</context>
+        <URL>http://uri.hab.de/instance/schema/diglib-admmd</URL>
+        <context>Administrative Metadaten der das Objekt konstituirenden Dateien.</context>
     </external_schema>
     <external_schema ID="diglib-struct">
         <name>Kanonisches RDF/XML deskriptiver Metadaten von Objektstrukturen</name>
-        <context>/mets/dmdSec/mdWrap/xmlData</context>
+        <URL>http://uri.hab.de/instance/schema/diglib-structmd</URL>
+        <context>Beschreibung logischer Objektstrukturen.</context>
     </external_schema>
     <external_schema>
         <name>NISO Technical Metadata for Digital Still Images</name>
         <URL>http://www.loc.gov/standards/mix/mix.xsd</URL>
-        <context>/mets/dmdSec/mdWrap/xmlData</context>
+        <context>Technische Metadaten von Bilddateien.</context>
     </external_schema>
     <description_rules/>
     <controlled_vocabularies>
@@ -149,6 +152,25 @@
                                 <sch:rule context="mets:mets">
                                     <sch:assert test="exists(mets:structMap[@TYPE = 'LOGICAL'])" id="structMap.assert.2">
                                         Das digitale Objekt muss mindestens eine Beschreibung der logischen Objektstruktur enthalten. 
+                                    </sch:assert>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement>
+                <description>
+                    <html:p>Alle in der physischen und logischen Objektstruktur verwendeten Typen müssen in der Strukturdatentypologie verzeichnet sein.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:div[ancestor::mets:structMap[@TYPE = 'PHYSICAL' or @TYPE = 'LOGICAL']]">
+                                    <sch:assert test="concat('http://uri.hab.de/ontology/diglib-struct#', @TYPE) = doc('http://uri.hab.de/ontology/diglib-struct.rdf')//rdfs:Class/@rdf:about" id="structMap.assert.3">
+                                        Das @TYPE-Attribut einer Struktur muss mit einem in der Strukturdatentypologie definierten Wert belegt
+                                        werden. Der Wert <sch:value-of select="@TYPE"/> ist unbekannt.
                                     </sch:assert>
                                 </sch:rule>
                             </testXML>
