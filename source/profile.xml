@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="profile.xsl"?>
 <METS_Profile xmlns="http://www.loc.gov/METS_Profile/v2" xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mix="http://www.loc.gov/mix/v20" xmlns:mets="http://www.loc.gov/METS/"
-    STATUS="provisional" REGISTRATION="unregistered">
+    xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mix="http://www.loc.gov/mix/v20" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:mets="http://www.loc.gov/METS/" STATUS="provisional" REGISTRATION="unregistered">
     <URI LOCTYPE="URN" ASSIGNEDBY="local">urn:uuid:76806cce-4ca6-4154-88a5-991fd05ccdfa</URI>
-    <title>METS Anwendungsprofil für Produkte der Massendigitalisierung der Herzog August Bibliothek Wolfenbüttel</title>
+    <title>METS Anwendungsprofil für Produkte der Massendigitalisierung</title>
     <abstract>Dieses Dokument beschreibt die Struktur der METS-Datei für alle Produkte der Massendigitalisierung in der Wolfenbütteler Digitalen Bibliothek. Es gilt für digitalisierte Drucke, Inkunabeln, Handschriften und Grafiken.</abstract>
     <date>1970-01-01T00:00:00Z</date>
     <contact>
+        <name>David Maus</name>
         <institution>Herzog August Bibliothek Wolfenbüttel</institution>
         <address>Postfach 1364, D-38299 Wolfenbüttel</address>
+        <phone>+49-5331-808-317</phone>
         <email>maus@hab.de</email>
     </contact>
     <registration_info regDate="1970-01-01T00:00:00Z" regURI="#fixme"/>
@@ -41,22 +43,22 @@
         <metsRootElement>
             <requirement>
                 <description>
-                    <html:p>Das Wurzelelement enthält den lokalen Identifikator des Objekts im @OBJID- und einen das Objekt identifizierenden Namen imd @LABEL-Attribut. Der Wert des @LABEL wird in der Regel aus dem Namen der besitzenden Einrichtung und der Signatur der Objektvorlage gebildet.</html:p>
-                    <html:p>
-                        <html:samp>&lt;mets:mets OBJID="drucke/textb-680-1" LABEL="Herzog August Bibliothek Wolfenbüttel, Textb. 680 (1)"&gt;</html:samp>
-                    </html:p>
+                    <html:p>Das Wurzelelement enthält den lokalen Identifikator des Objekts im
+                        @OBJID- und einen das Objekt identifizierenden Namen im @LABEL-Attribut. Der
+                        Wert des @LABEL wird in der Regel aus dem Namen der besitzenden Einrichtung
+                        und der Signatur der Objektvorlage gebildet.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="normalize-space(@OBJID)" id="metsRootElement.assert.1">
-                                        Die Angabe eines lokalen Identifikators ist verpflichtend.
-                                    </sch:assert>
-                                    <sch:assert test="normalize-space(@LABEL)" id="metsRootElement.assert.2">
-                                        Die Angabe eines identifizierenden Namens ist verpflichtend.
-                                    </sch:assert>
+                                    <sch:assert test="normalize-space(@OBJID)"
+                                        id="metsRootElement.assert.1"> Die Angabe eines lokalen
+                                        Identifikators ist verpflichtend. </sch:assert>
+                                    <sch:assert test="normalize-space(@LABEL)"
+                                        id="metsRootElement.assert.2"> Die Angabe eines
+                                        identifizierenden Namens ist verpflichtend. </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -64,6 +66,117 @@
                 </tests>
             </requirement>
         </metsRootElement>
+        <metsHdr>
+            <requirement>
+                <description>
+                    <html:p>Der METS-Kopfbereich nennt die Herzog August Bibliothek als Verwalter
+                        (CUSTODIAN) des Objekts.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:mets">
+                                    <sch:assert test="mets:metsHdr" id="metsHdr.assert.1"> Der
+                                        METS-Kopfbereich mit Angaben zu Objekt und METS-Datei ist
+                                        verpflichtend. </sch:assert>
+                                </sch:rule>
+                                <sch:rule context="mets:metsHdr">
+                                    <sch:assert
+                                        test="mets:agent[@ROLE = 'CUSTODIAN'][@TYPE = 'ORGANIZATION']/mets:name = 'Herzog August Bibliothek Wolfenbüttel'"
+                                        id="metsHdr.assert.2"> Die Herzog August Bibliothek muss als
+                                        Verwalter des Objekts ausgewiesen werden. </sch:assert>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+        </metsHdr>
+        <fileSec>
+            <requirement>
+                <description>
+                    <html:p>Die digitalen Reproduktionen der die Vorlage konstituierenden Seiten
+                        sind mit der Verwendung (Attribut @USE) als MASTER gekennzeichnet. Die
+                        Kennzeichnung erfolgt entweder am mets:file-Element oder an einer
+                        übergeordneten mets:fileGrp.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:fileSec">
+                                    <sch:assert
+                                        test="exists(.//mets:file[@USE = 'MASTER']) or exists(.//mets:file[not(@USE) and ancestor::mets:fileGrp[@USE][1]/@USE = 'MASTER'])"
+                                        id="fileSec.assert.1"> Das digitale Objekt muss mindestens
+                                        eine Datei mit der Verwendung @USE = MASTER besitzen.
+                                    </sch:assert>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+        </fileSec>
+        <structMap>
+            <requirement>
+                <description>
+                    <html:p>Die Abfolge der die Vorlage konstituierenden Seiten sind in einer mets:structMap vom Typ (Attribut @TYPE) PHYSICAL aufgeführt.</html:p>
+                    <html:p>Sie enthält einen Strukturabschnitt (Element mets:div) vom Typ physSequence, dem für jede Seite ein Strukturabschnitt vom Typ page untergeordnet ist.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:mets">
+                                    <sch:assert test="exists(mets:structMap[@TYPE = 'PHYSICAL'])" id="structMap.assert.1">
+                                        Das digitale Objekt muss mindestens eine Beschreibung der physischen Objektstruktur enthalten. 
+                                    </sch:assert>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement>
+                <description>
+                    <html:p>Die logische Struktur der Vorlage ist in einer mets:structMap vom Typ (Attribut @TYPE) LOGICAL aufgeführt.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:mets">
+                                    <sch:assert test="exists(mets:structMap[@TYPE = 'LOGICAL'])" id="structMap.assert.2">
+                                        Das digitale Objekt muss mindestens eine Beschreibung der logischen Objektstruktur enthalten. 
+                                    </sch:assert>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+        </structMap>
+        <structLink>
+            <requirement>
+                <description>
+                    <html:p>Die Verbindung zwischen logischer und physischer Objektstruktur ist in einer mets:structLink ausgedrückt, Elemente der physischen Elementen der logischen Struktur zuordnet.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:mets">
+                                    <sch:assert test="exists(mets:structLink/mets:smLink[@xlink:from = /mets:mets/mets:structMap[@TYPE = 'PHYSICAL']/mets:div/mets:div/@ID][xlink:to = /mets:mets/mets:structMap[@TYPE = 'LOGICAL']//mets:div/@ID])" id="structLink.assert.1">
+                                        Die Verbindung zwischen logischer und physischer Objektstruktur muss durch die Verknüpfung von der physischen zur logischen erfolgen. 
+                                    </sch:assert>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+        </structLink>
     </structural_requirements>
     <technical_requirements/>
     <tool/>
