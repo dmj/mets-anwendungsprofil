@@ -102,12 +102,25 @@
     <scenario label="when there is a logical and physical structure">
       <context>
         <mets:mets xmlns:mets="http://www.loc.gov/METS/">
-          <mets:structMap TYPE="PHYSICAL"/>
+          <mets:structMap TYPE="PHYSICAL">
+            <mets:div TYPE="physSequence"/>
+          </mets:structMap>
           <mets:structMap TYPE="LOGICAL"/>
         </mets:mets>
       </context>
       <expect-not-assert id="structMap.assert.1" label="there is a physical structure"/>
       <expect-not-assert id="structMap.assert.2" label="there is a logical structure"/>
+      <expect-not-assert id="structMap.assert.3" label="@TYPE is defined in the ontology"/>
+    </scenario>
+    <scenario label="when a structurel division has a @TYPE not defined in the ontology">
+      <context>
+        <mets:mets xmlns:mets="http://www.loc.gov/METS/">
+          <mets:structMap TYPE="PHYSICAL">
+            <mets:div TYPE="do-no-exist"/>
+          </mets:structMap>
+        </mets:mets>
+      </context>
+      <expect-assert id="structMap.assert.3" label="@TYPE is not defined in the ontology"/>
     </scenario>
   </scenario>
 
