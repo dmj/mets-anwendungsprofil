@@ -201,7 +201,13 @@
         </structLink>
     </structural_requirements>
     <technical_requirements/>
-    <tool/>
+    <tool>
+        <name>Validierende XProc 1.0 Pipeline</name>
+        <agency>Herzog August Bibliothek Wolfenbüttel</agency>
+        <description>
+            <html:p>Validiert eine METS-Datei gegen die hier aufgeführten Regeln.</html:p>
+        </description>
+    </tool>
     <Appendix NUMBER="1">
         <html:p/>
     </Appendix>
