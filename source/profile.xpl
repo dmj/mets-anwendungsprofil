@@ -9,6 +9,18 @@
 
   <p:input  port="source" primary="true"/>
 
+  <p:xslt name="extract-schematron">
+    <p:input port="source">
+      <p:document href="profile.xml"/>
+    </p:input>
+    <p:input port="stylesheet">
+      <p:document href="../utils/schematron.xsl"/>
+    </p:input>
+    <p:input port="parameters">
+      <p:empty/>
+    </p:input>
+  </p:xslt>
+
   <p:validate-with-xml-schema assert-valid="true" name="validate-xsd">
     <p:input port="source">
       <p:pipe step="main" port="source"/>
@@ -18,9 +30,21 @@
     </p:input>
   </p:validate-with-xml-schema>
 
+  <p:validate-with-schematron assert-valid="true" name="validate-schematron">
+    <p:input port="source">
+      <p:pipe step="validate-xsd" port="result"/>
+    </p:input>
+    <p:input port="schema">
+      <p:pipe step="extract-schematron" port="result"/>
+    </p:input>
+    <p:input port="parameters">
+      <p:empty/>
+    </p:input>
+  </p:validate-with-schematron>
+
   <p:viewport match="rdf:Description[ancestor::mets:rightsMD]" name="validate-rightsMD">
     <p:viewport-source>
-      <p:pipe step="validate-xsd" port="result"/>
+      <p:pipe step="validate-schematron" port="result"/>
     </p:viewport-source>
     <p:validate-with-relax-ng assert-valid="true">
       <p:input port="schema">
