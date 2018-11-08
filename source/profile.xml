@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="profile.xsl"?>
 <METS_Profile xmlns="http://www.loc.gov/METS_Profile/v2" xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mix="http://www.loc.gov/mix/v20" xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-    xmlns:mets="http://www.loc.gov/METS/" STATUS="provisional" REGISTRATION="unregistered">
-    <URI LOCTYPE="URN" ASSIGNEDBY="local">urn:uuid:76806cce-4ca6-4154-88a5-991fd05ccdfa</URI>
-    <title>METS Anwendungsprofil für Produkte der Massendigitalisierung</title>
-    <abstract>Dieses Dokument beschreibt die Struktur der METS-Datei für alle Produkte der Massendigitalisierung in der Wolfenbütteler Digitalen Bibliothek. Es gilt für digitalisierte Drucke, Inkunabeln, Handschriften und Grafiken.</abstract>
+    xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mix="http://www.loc.gov/mix/v20"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:mets="http://www.loc.gov/METS/"
+    STATUS="provisional" REGISTRATION="unregistered">
+    <URI LOCTYPE="OTHER" OTHERLOCTYPE="URI" ASSIGNEDBY="local">tag:diglib.hab.de,2018:METS:v1</URI>
+    <title>METS-Anwendungsprofil für Produkte der Massendigitalisierung</title>
+    <abstract>Dieses Dokument beschreibt die Struktur der METS-Datei für alle Produkte der Massendigitalisierung in der Wolfenbütteler Digitalen Bibliothek. Es gilt für alle Objekte, deren physische Struktur als Abfolge von Seiten beschrieben werden kann, die als je ein Image im TIFF-Format reproduziert werden.</abstract>
     <date>1970-01-01T00:00:00Z</date>
     <contact>
         <name>David Maus</name>
@@ -21,17 +23,14 @@
     <external_schema>
         <name>Kanonisches RDF/XML administrativer Metadaten</name>
         <URL>http://uri.hab.de/instance/schema/diglib-rightsmd</URL>
-        <context>Administrative Metadaten der das Objekt konstituierenden Dateien.</context>
     </external_schema>
     <external_schema ID="diglib-struct">
         <name>Kanonisches RDF/XML deskriptiver Metadaten von Objektstrukturen</name>
         <URL>http://uri.hab.de/instance/schema/diglib-structmd</URL>
-        <context>Beschreibung logischer Objektstrukturen.</context>
     </external_schema>
     <external_schema>
         <name>NISO Technical Metadata for Digital Still Images</name>
         <URL>http://www.loc.gov/standards/mix/mix.xsd</URL>
-        <context>Technische Metadaten von Bilddateien.</context>
     </external_schema>
     <description_rules/>
     <controlled_vocabularies>
@@ -39,29 +38,55 @@
             <name>Strukturdatenontology</name>
             <maintenance_agency>Herzog August Bibliothek Wolfenbüttel</maintenance_agency>
             <URI>http://uri.hab.de/ontology/diglib-struct</URI>
-            <context>/mets/structMap//div/@TYPE</context>
         </vocabulary>
     </controlled_vocabularies>
     <structural_requirements>
         <metsRootElement>
-            <requirement>
+            <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Das Wurzelelement enthält den lokalen Identifikator des Objekts im
-                        @OBJID- und einen das Objekt identifizierenden Namen im @LABEL-Attribut. Der
-                        Wert des @LABEL wird in der Regel aus dem Namen der besitzenden Einrichtung
-                        und der Signatur der Objektvorlage gebildet.</html:p>
+                    <html:p>Das &lt;mets> Wurzelelement muss ein @OBJID-Attribut mit dem lokalen Identifikator des Objekts besitzen.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="normalize-space(@OBJID)"
-                                        id="metsRootElement.assert.1"> Die Angabe eines lokalen
-                                        Identifikators ist verpflichtend. </sch:assert>
-                                    <sch:assert test="normalize-space(@LABEL)"
-                                        id="metsRootElement.assert.2"> Die Angabe eines
-                                        identifizierenden Namens ist verpflichtend. </sch:assert>
+                                    <sch:assert test="normalize-space(@OBJID)" id="metsRootElement.assert.1"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>
+                        Das &lt;mets> Wurzelelement muss ein @LABEL-Attribut mit einem das Objekt identifizierenden Namen besitzen. Der
+                        Name wird in der Regel aus dem Namen der die Vorlage besitzenden Einrichtung und der Signatur der Vorlage gebildet.
+                    </html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:mets">
+                                    <sch:assert test="normalize-space(@LABEL)" id="metsRootElement.assert.2"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Das &lt;mets>-Wurzelelement muss ein @PROFILE-Attribut mit dem Wert 'tag:diglib.hab.de,2018:METS:v1' besitzen.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:mets">
+                                    <sch:assert test="@PROFILE eq 'tag:diglib.hab.de,2018:METS:v1'" id="metsRootElement.assert.3"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -70,25 +95,81 @@
             </requirement>
         </metsRootElement>
         <metsHdr>
-            <requirement>
+            <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Der METS-Kopfbereich nennt die Herzog August Bibliothek als Verwalter
-                        (CUSTODIAN) des Objekts.</html:p>
+                    <html:p>Das METS-Dokument muss ein &lt;metsHdr>-Element enthalten.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="mets:metsHdr" id="metsHdr.assert.1"> Der
-                                        METS-Kopfbereich mit Angaben zu Objekt und METS-Datei ist
-                                        verpflichtend. </sch:assert>
+                                    <sch:assert test="mets:metsHdr" id="metsHdr.assert.0"/>
                                 </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Das &lt;metsHdr>-Element muss das @CREATEDATE-Attribut besitzen.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
                                 <sch:rule context="mets:metsHdr">
+                                    <sch:assert test="normalize-space(@CREATEDATE)" id="metsHdr.assert.1"/> 
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Das &lt;metsHdr>-Element muss ein &lt;agent>-Element mit @ROLE-Attribut "CUSTODIAN" und dem @TYPE-Attribut "ORGANIZATION" enthalten.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:metsHdr">
+                                    <sch:assert test="mets:agent[@ROLE = 'CUSTODIAN'][@TYPE = 'ORGANIZATION']" id="metsHdr.assert.1"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Das &lt;agent>-Element muss ein &lt;name>-Element mit dem Wert "Herzog August Bibliothek Wolfenbüttel" enthalten.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:agent[@ROLE = 'CUSTODIAN'][@TYPE = 'ORGANIZATION']">
                                     <sch:assert
-                                        test="mets:agent[@ROLE = 'CUSTODIAN'][@TYPE = 'ORGANIZATION']/mets:name = 'Herzog August Bibliothek Wolfenbüttel'"
-                                        id="metsHdr.assert.2"> Die Herzog August Bibliothek muss als
-                                        Verwalter des Objekts ausgewiesen werden. </sch:assert>
+                                        test="mets:name = 'Herzog August Bibliothek Wolfenbüttel'" id="metsHdr.assert.2"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="SHOULD">
+                <description>
+                    <html:p>Das &lt;metsHdr>-Element sollte das @LASTMODDATE mit Datum und Uhrzeit der letzten Dateimodifikation besitzen.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron" >
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:metsHdr">
+                                    <sch:assert test="normalize-space(@LASTMODDATE)" id="metsHdr.assert.3"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -96,24 +177,99 @@
                 </tests>
             </requirement>
         </metsHdr>
-        <fileSec>
-            <requirement>
+        <amdSec>
+            <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Die digitalen Reproduktionen der die Vorlage konstituierenden Seiten
-                        sind mit der Verwendung (Attribut @USE) als MASTER gekennzeichnet. Die
-                        Kennzeichnung erfolgt entweder am mets:file-Element oder an einer
-                        übergeordneten mets:fileGrp.</html:p>
+                    <html:p>Das METS-Dokument muss einen &lt;amdSec>-Abschnitt enthalten.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:mets">
+                                    <sch:assert test="count(mets:amdSec) eq 1" id="amdSec.assert.1"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Das &lt;amdSec>-Element muss mindestens einen &lt;rightsMD>-Abschnitt mit administrativen Metadaten enthalten.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:amdSec">
+                                    <sch:assert test="mets:rightsMD[mets:mdWrap[@MDTYPE = 'OTHER'][@OTHERMDTYPE = 'RDF/XML']/mets:xmlData]" id="amdSec.assert.2"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Das &lt;amdSec>-Element muss mindestens einen &lt;techMD>-Abschnitt mit technischen Metadaten im MIX-Format enthalten.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:amdSec">
+                                    <sch:assert test="mets:techMD[mets:mdWrap[@MDTYPE = 'NISOIMG']/mets:xmlData]" id="amdSec.assert.3"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+        </amdSec>
+        <fileSec>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Das &lt;fileSec>-Element muss einen &lt;fileGrp>-Abschnitt enthalten, dessen @USE-Attribut mit dem Wert 'MASTER' belegt ist.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:fileSec">
-                                    <sch:assert
-                                        test="exists(.//mets:file[@USE = 'MASTER']) or exists(.//mets:file[not(@USE) and ancestor::mets:fileGrp[@USE][1]/@USE = 'MASTER'])"
-                                        id="fileSec.assert.1"> Das digitale Objekt muss mindestens
-                                        eine Datei mit der Verwendung @USE = MASTER besitzen.
-                                    </sch:assert>
+                                    <sch:assert test="count(mets:fileGrp[@USE = 'MASTER']) eq 1" id="fileSec.assert.1"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Das &lt;fileGrp>-Element darf nur &lt;file>-Element enthalten.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:fileGrp[@USE = 'MASTER']">
+                                    <sch:assert test="empty(*[not(self::mets:file)])" id="fileSec.assert.2"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Das &lt;fileGrp>-Element muss mindestens ein &lt;file>-Element enthalten.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:fileGrp[@USE = 'MASTER']">
+                                    <sch:assert test="mets:file" id="fileSec.assert.3"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -122,56 +278,51 @@
             </requirement>
         </fileSec>
         <structMap>
-            <requirement>
+            <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Die Abfolge der die Vorlage konstituierenden Seiten sind in einer mets:structMap vom Typ (Attribut @TYPE) PHYSICAL aufgeführt.</html:p>
-                    <html:p>Sie enthält einen Strukturabschnitt (Element mets:div) vom Typ physSequence, dem für jede Seite ein Strukturabschnitt vom Typ page untergeordnet ist.</html:p>
+                    <html:ul>
+                        <html:li>Das METS-Dokument muss einen &lt;structMap>-Abschnitt besitzen, dessen @TYPE-Attribut mit dem Wert 'PHYSICAL' belegt ist.</html:li>
+                        <html:li>Diese &lt;structMap> besitzt ein &lt;mets:div>-Element, dessen @TYPE-Attribut mit dem Wert 'physSequence' belegt ist.</html:li>
+                        <html:li>Dieses &lt;div>-Element enthält weitere &lt;div>-Element, deren @TYPE-Attribut mit dem Wert 'page' belegt ist.</html:li>
+                        <html:li>Diese &lt;div>-Elemente dürfen nur &lt;fptr>-Elemente enthalten.</html:li>
+                    </html:ul>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="exists(mets:structMap[@TYPE = 'PHYSICAL'])" id="structMap.assert.1">
-                                        Das digitale Objekt muss mindestens eine Beschreibung der physischen Objektstruktur enthalten. 
-                                    </sch:assert>
+                                    <sch:assert test="count(mets:structMap[@TYPE = 'PHYSICAL']) eq 1" id="structMap.assert.1"/>
+                                </sch:rule>
+                                <sch:rule context="mets:structMap[@TYPE = 'PHYSICAL']">
+                                    <sch:assert test="count(mets:div[@TYPE = 'physSequence']) eq 1" id="structMap.assert.2"/>
+                                </sch:rule>
+                                <sch:rule context="mets:div[@TYPE = 'physSequence']">
+                                    <sch:assert test="count(mets:file[@TYPE = 'page']) ge 1" id="structMap.assert.3"/>
+                                    <sch:assert test="every $div in mets:div satisfies $div/@TYPE = 'page'" id="structMap.assert.4"/>
+                                    <sch:assert test="every $div in mets:div satisfies empty($div/*[not(self::mets:fptr)])" id="structMap.assert.5"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
                     </test>
                 </tests>
             </requirement>
-            <requirement>
+            <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Die logische Struktur der Vorlage ist in einer mets:structMap vom Typ (Attribut @TYPE) LOGICAL aufgeführt.</html:p>
+                    <html:ul>
+                        <html:li>Das METS-Dokument muss einen &lt;structMap>-Abschnitt besitzen, dessen @TYPE-Attribut mit dem Wert 'LOGICAL' belegt ist.</html:li>
+                        <html:li>Die in diesem Abschnitt enthaltenen &lt;div>-Elemente dürfen nur andere &lt;div>-Elemente enthalten.</html:li>
+                    </html:ul>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="exists(mets:structMap[@TYPE = 'LOGICAL'])" id="structMap.assert.2">
-                                        Das digitale Objekt muss mindestens eine Beschreibung der logischen Objektstruktur enthalten. 
-                                    </sch:assert>
+                                    <sch:assert test="count(mets:structMap[@TYPE = 'LOGICAL']) eq 1" id="structMap.assert.6"/>
                                 </sch:rule>
-                            </testXML>
-                        </testWrap>
-                    </test>
-                </tests>
-            </requirement>
-            <requirement>
-                <description>
-                    <html:p>Alle in der physischen und logischen Objektstruktur verwendeten Typen müssen in der Strukturdatentypologie verzeichnet sein.</html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="Schematron">
-                        <testWrap>
-                            <testXML>
-                                <sch:rule context="mets:div[ancestor::mets:structMap[@TYPE = 'PHYSICAL' or @TYPE = 'LOGICAL']]">
-                                    <sch:assert test="concat('http://uri.hab.de/ontology/diglib-struct#', @TYPE) = doc('http://uri.hab.de/ontology/diglib-struct.rdf')//rdfs:Class/@rdf:about" id="structMap.assert.3">
-                                        Das @TYPE-Attribut einer Struktur muss mit einem in der Strukturdatentypologie definierten Wert belegt
-                                        werden. Der Wert <sch:value-of select="@TYPE"/> ist unbekannt.
-                                    </sch:assert>
+                                <sch:rule context="mets:structMap[@TYPE = 'LOGICAL']">
+                                    <sch:assert test="empty(.//*[not(self::mets:div)])" id="structMap.assert.7"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -180,18 +331,18 @@
             </requirement>
         </structMap>
         <structLink>
-            <requirement>
+            <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Die Verbindung zwischen logischer und physischer Objektstruktur ist in einer mets:structLink ausgedrückt, die Elemente der logischen Elementen der physischen Struktur zuordnet.</html:p>
+                    <html:ul>
+                        <html:li>Das METS-Dokument muss einen &lt;structLink>-Abschnitt besitzen.</html:li>
+                    </html:ul>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="exists(mets:structLink/mets:smLink[@xlink:to = /mets:mets/mets:structMap[@TYPE = 'PHYSICAL']/mets:div/mets:div/@ID][@xlink:from = /mets:mets/mets:structMap[@TYPE = 'LOGICAL']//mets:div/@ID])" id="structLink.assert.1">
-                                        Die Verbindung zwischen logischer und physischer Objektstruktur muss durch die Verknüpfung von der logischen zur physischen erfolgen. 
-                                    </sch:assert>
+                                    <sch:assert test="count(mets:structLink) eq 1" id="structLink.assert.1"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -199,6 +350,78 @@
                 </tests>
             </requirement>
         </structLink>
+        <multiSection>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Das &lt;fileGrp>-Element muss mit administrativen Metadaten verknüpft sein.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:fileGrp[@USE = 'MASTER']">
+                                    <sch:assert test="normalize-space(@ADMID)" id="multiSection.assert.1"/>
+                                    <sch:assert test="/mets:mets/mets:amdSec/mets:rightsMD[@ID = tokenize(current()/@ADMID, ' ')]" id="multiSection.assert.2"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Jedes &lt;file>-Element muss mit technischen Metadaten verknüpft sein.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:file">
+                                    <sch:assert test="normalize-space(@ADMID)" id="multiSection.assert.3"/>
+                                    <sch:assert test="/mets:mets/mets:amdSec/mets:techMD[@ID = tokenize(current()/@ADMID, ' ')]" id="multiSection.assert.4"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Alle Werte des @TYPE-Attributs eines &lt;div>-Elements müssen der <html:a href="http://uri.hab.de/ontology/diglib-struct">Strukturdatenontologie</html:a> entnommen sein.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:div/@TYPE">
+                                    <sch:assert test="concat('http://uri.hab.de/ontology/diglib-struct#', @TYPE) = doc('http://uri.hab.de/ontology/diglib-struct.rdf')//rdfs:Class/@rdf:about" id="multiSection.assert.5"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:ul>
+                        <html:li>Jedes &lt;smLink>-Element des &lt;structLink>-Abschnitts verbindet ein &lt;div>-Element der logischen mit einem oderer mehreren &lt;div>-Elementen der physischen &lt;structMap>.</html:li>
+                        <html:li>Diese Verbindung geht immer vom &lt;div> der logischen zum &lt;div> der physischen &lt;structMap>.</html:li>
+                    </html:ul>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:structLink">
+                                    <sch:assert test="every $link in mets:smLink satisfies /mets:mets/mets:structMap[@TYPE = 'LOGICAL']//mets:div[@ID = $link/@xlink:from]" id="multiSection.assert.6"/>
+                                    <sch:assert test="every $link in mets:smLink satisfies /mets:mets/mets:structMap[@TYPE = 'PHYSICAL']//mets:div[@ID = $link/@xlink:to]" id="multiSection.assert.6"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+        </multiSection>
     </structural_requirements>
     <technical_requirements/>
     <tool>
