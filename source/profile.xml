@@ -4,7 +4,9 @@
     xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mix="http://www.loc.gov/mix/v20"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:mets="http://www.loc.gov/METS/"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:mets="http://www.loc.gov/METS/" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/mets.xsd http://www.loc.gov/METS_Profile/v2 http://www.loc.gov/standards/mets/profile_docs/mets.profile.v2-1.xsd"
     STATUS="provisional" REGISTRATION="unregistered">
     <URI LOCTYPE="OTHER" OTHERLOCTYPE="URI" ASSIGNEDBY="local">tag:diglib.hab.de,2018:METS:v1</URI>
     <title>METS-Anwendungsprofil für Produkte der Massendigitalisierung</title>
@@ -329,6 +331,38 @@
                     </test>
                 </tests>
             </requirement>
+            <requirement REQLEVEL="SHOULD">
+                <description>
+                    <html:p>Ein &lt;fptr>-Element sollte ein @ID-Attribut haben, aus dem die URI einer IIIF-Annotation gebildet werden kann.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="sch:fptr">
+                                    <assert test="@ID" id="structMap.assert.8"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MAY">
+                <description>
+                    <html:p>Ein &lt;div>-Element kann durch deskriptive Metadaten beschrieben werden, die im @DMDID-Attribut verknüpft sind.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:div">
+                                    <sch:assert test="normalize-space(@DMDID)" id="structMap.assert.9"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
         </structMap>
         <structLink>
             <requirement REQLEVEL="MUST">
@@ -414,7 +448,39 @@
                             <testXML>
                                 <sch:rule context="mets:structLink">
                                     <sch:assert test="every $link in mets:smLink satisfies /mets:mets/mets:structMap[@TYPE = 'LOGICAL']//mets:div[@ID = $link/@xlink:from]" id="multiSection.assert.6"/>
-                                    <sch:assert test="every $link in mets:smLink satisfies /mets:mets/mets:structMap[@TYPE = 'PHYSICAL']//mets:div[@ID = $link/@xlink:to]" id="multiSection.assert.6"/>
+                                    <sch:assert test="every $link in mets:smLink satisfies /mets:mets/mets:structMap[@TYPE = 'PHYSICAL']//mets:div[@ID = $link/@xlink:to]" id="multiSection.assert.7"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Die Werte eines @DMDID-Attributs müssen ein &lt;dmdSec>-Element referenzieren.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="@DMDID">
+                                    <sch:assert test="exists(//mets:dmdSec[@ID = tokenize(current(), ' ')])" id="multiSection.assert.8"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Die Werte eines @ADMID-Attributs müssen eine Abschnitt innerhalb des &lt;amdSec>-Elements referenzieren.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="@ADMID">
+                                    <sch:assert test="exists(//mets:amdSec/mets:*[@ID = tokenize(current(), ' ')])" id="multiSection.assert.9"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -432,6 +498,6 @@
         </description>
     </tool>
     <Appendix NUMBER="1">
-        <html:p/>
+        <xi:include href="../examples/grafik_graph-res-b-81-2/mets.xml"/>
     </Appendix>
 </METS_Profile>
