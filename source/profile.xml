@@ -395,7 +395,7 @@
                             <testXML>
                                 <sch:rule context="mets:fileGrp[@USE = 'MASTER']">
                                     <sch:assert test="normalize-space(@ADMID)" id="multiSection.assert.1"/>
-                                    <sch:assert test="/mets:mets/mets:amdSec/mets:rightsMD[@ID = tokenize(current()/@ADMID, ' ')]" id="multiSection.assert.2"/>
+                                    <sch:assert test="/mets:mets/mets:amdSec/mets:rightsMD[@ID = tokenize(normalize-space(current()/@ADMID), ' ')]" id="multiSection.assert.2"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -412,7 +412,7 @@
                             <testXML>
                                 <sch:rule context="mets:file">
                                     <sch:assert test="normalize-space(@ADMID)" id="multiSection.assert.3"/>
-                                    <sch:assert test="/mets:mets/mets:amdSec/mets:techMD[@ID = tokenize(current()/@ADMID, ' ')]" id="multiSection.assert.4"/>
+                                    <sch:assert test="/mets:mets/mets:amdSec/mets:techMD[@ID = tokenize(normalize-space(current()/@ADMID), ' ')]" id="multiSection.assert.4"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -464,7 +464,7 @@
                         <testWrap>
                             <testXML>
                                 <sch:rule context="@DMDID">
-                                    <sch:assert test="exists(//mets:dmdSec[@ID = tokenize(current(), ' ')])" id="multiSection.assert.8"/>
+                                    <sch:assert test="exists(//mets:dmdSec[@ID = tokenize(normalize-space(current()), ' ')])" id="multiSection.assert.8"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -480,7 +480,7 @@
                         <testWrap>
                             <testXML>
                                 <sch:rule context="@ADMID">
-                                    <sch:assert test="exists(//mets:amdSec/mets:*[@ID = tokenize(current(), ' ')])" id="multiSection.assert.9"/>
+                                    <sch:assert test="exists(//mets:amdSec/mets:*[@ID = tokenize(normalize-space(current()), ' ')])" id="multiSection.assert.9"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
