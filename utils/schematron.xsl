@@ -7,17 +7,24 @@
 
   <xsl:template match="profile:METS_Profile">
     <xsl:variable name="root" select="."/>
-    <sch:schema queryBinding="xslt2">
+    <sch:schema queryBinding="xslt2" defaultPhase="MUST">
       <sch:title><xsl:value-of select="profile:title"/></sch:title>
       <xsl:for-each select="in-scope-prefixes(.)[not( . = ('xml', 'sch', ''))]">
         <sch:ns prefix="{.}" uri="{namespace-uri-for-prefix(., $root)}"/>
+      </xsl:for-each>
+      <xsl:for-each select="distinct-values(.//profile:requirement/@REQLEVEL)">
+        <sch:phase id="{.}">
+          <xsl:for-each select="$root//profile:test[../../@REQLEVEL = current()]">
+            <sch:active pattern="{generate-id()}"/>
+          </xsl:for-each>
+        </sch:phase>
       </xsl:for-each>
       <xsl:apply-templates/>
     </sch:schema>
   </xsl:template>
 
   <xsl:template match="profile:test[@TESTLANGUAGE = 'Schematron']">
-    <sch:pattern>
+    <sch:pattern id="{generate-id()}">
       <xsl:sequence select="profile:testWrap/profile:testXML/*"/>
     </sch:pattern>
   </xsl:template>
