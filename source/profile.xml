@@ -22,7 +22,7 @@
     <registration_info regDate="1970-01-01T00:00:00Z" regURI="#fixme"/>
     <related_profile/>
     <profile_context/>
-    <external_schema>
+    <external_schema ID="diglib-rightsmd">
         <name>Kanonisches RDF/XML administrativer Metadaten</name>
         <URL>http://uri.hab.de/instance/schema/diglib-rightsmd</URL>
     </external_schema>
@@ -30,7 +30,7 @@
         <name>Kanonisches RDF/XML deskriptiver Metadaten von Objektstrukturen</name>
         <URL>http://uri.hab.de/instance/schema/diglib-structmd</URL>
     </external_schema>
-    <external_schema>
+    <external_schema ID="niso-mix">
         <name>NISO Technical Metadata for Digital Still Images</name>
         <URL>http://www.loc.gov/standards/mix/mix.xsd</URL>
     </external_schema>
@@ -339,8 +339,8 @@
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
-                                <sch:rule context="sch:fptr">
-                                    <assert test="@ID" id="structMap.assert.8"/>
+                                <sch:rule context="mets:fptr">
+                                    <sch:assert test="@ID" id="structMap.assert.8"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
