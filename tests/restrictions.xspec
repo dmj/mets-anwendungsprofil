@@ -99,4 +99,65 @@
     </scenario>
   </scenario>
 
+  <scenario label="Testing restrictions of the amdSec element">
+    <scenario label="the amdSec is missing">
+      <context>
+        <mets:mets/>
+      </context>
+      <expect-assert id="amdSec.assert.1"/>
+    </scenario>
+    <scenario label="the amdSec is present">
+      <context>
+        <mets:mets>
+          <mets:amdSec/>
+        </mets:mets>
+      </context>
+      <expect-not-assert id="amdSec.assert.1"/>
+    </scenario>
+    <scenario label="the amdSec does not contain a rightsMD element">
+      <context>
+        <mets:mets>
+          <mets:amdSec/>
+        </mets:mets>
+      </context>
+      <expect-assert id="amdSec.assert.2"/>
+    </scenario>
+    <scenario label="the amdSec contains a rightsMD element">
+      <context>
+        <mets:mets>
+          <mets:amdSec>
+            <mets:rightsMD>
+              <mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="RDF" MIMETYPE="application/rdf+xml">
+                <mets:xmlData/>
+              </mets:mdWrap>
+            </mets:rightsMD>
+          </mets:amdSec>
+        </mets:mets>
+      </context>
+      <expect-not-assert id="amdSec.assert.2"/>
+    </scenario>
+    <scenario label="the amdSec does not contain a techMD element">
+      <context>
+        <mets:mets>
+          <mets:amdSec/>
+        </mets:mets>
+      </context>
+      <expect-assert id="amdSec.assert.3"/>
+    </scenario>
+    <scenario label="the amdSec does contain a techMD element">
+      <context>
+        <mets:mets>
+          <mets:amdSec>
+            <mets:techMD>
+              <mets:mdWrap MDTYPE="NISOIMG">
+                <mets:xmlData/>
+              </mets:mdWrap>
+            </mets:techMD>
+          </mets:amdSec>
+        </mets:mets>
+      </context>
+      <expect-not-assert id="amdSec.assert.3"/>
+    </scenario>
+  </scenario>
+
 </description>

@@ -205,7 +205,7 @@
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:amdSec">
-                                    <sch:assert test="mets:rightsMD[mets:mdWrap[@MDTYPE = 'OTHER'][@OTHERMDTYPE = 'RDF/XML']/mets:xmlData]" id="amdSec.assert.2"/>
+                                    <sch:assert test="mets:rightsMD[mets:mdWrap[@MDTYPE = 'OTHER'][@OTHERMDTYPE = 'RDF']/mets:xmlData]" id="amdSec.assert.2"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
