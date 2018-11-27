@@ -138,7 +138,7 @@
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:metsHdr">
-                                    <sch:assert test="mets:agent[@ROLE = 'CUSTODIAN'][@TYPE = 'ORGANIZATION']" id="metsHdr.assert.1"/>
+                                    <sch:assert test="mets:agent[@ROLE = 'CUSTODIAN'][@TYPE = 'ORGANIZATION']" id="metsHdr.assert.2"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -155,7 +155,7 @@
                             <testXML>
                                 <sch:rule context="mets:agent[@ROLE = 'CUSTODIAN'][@TYPE = 'ORGANIZATION']">
                                     <sch:assert
-                                        test="mets:name = 'Herzog August Bibliothek Wolfenbüttel'" id="metsHdr.assert.2"/>
+                                        test="mets:name = 'Herzog August Bibliothek Wolfenbüttel'" id="metsHdr.assert.3"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -171,7 +171,7 @@
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:metsHdr">
-                                    <sch:assert test="normalize-space(@LASTMODDATE)" id="metsHdr.assert.3"/>
+                                    <sch:assert test="normalize-space(@LASTMODDATE)" id="metsHdr.assert.4"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -427,7 +427,7 @@
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
-                                <sch:rule context="mets:div/@TYPE">
+                                <sch:rule context="mets:div[@TYPE]">
                                     <sch:assert test="concat('http://uri.hab.de/ontology/diglib-struct#', @TYPE) = doc('http://uri.hab.de/ontology/diglib-struct.rdf')//rdfs:Class/@rdf:about" id="multiSection.assert.5"/>
                                 </sch:rule>
                             </testXML>
@@ -463,8 +463,8 @@
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
-                                <sch:rule context="@DMDID">
-                                    <sch:assert test="exists(//mets:dmdSec[@ID = tokenize(normalize-space(current()), ' ')])" id="multiSection.assert.8"/>
+                                <sch:rule context="*[@DMDID]">
+                                    <sch:assert test="exists(//mets:dmdSec[@ID = tokenize(normalize-space(current()/@DMDID), ' ')])" id="multiSection.assert.8"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -479,8 +479,8 @@
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
-                                <sch:rule context="@ADMID">
-                                    <sch:assert test="exists(//mets:amdSec/mets:*[@ID = tokenize(normalize-space(current()), ' ')])" id="multiSection.assert.9"/>
+                                <sch:rule context="*[@ADMID]">
+                                    <sch:assert test="exists(//mets:amdSec/mets:*[@ID = tokenize(normalize-space(current()/@ADMID), ' ')])" id="multiSection.assert.9"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
