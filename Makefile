@@ -8,7 +8,9 @@ endif
 
 .PHONY: test
 test: schematron
-	${XSPEC} -s tests/restrictions.xspec
+	${XSPEC} -s tests/must.xspec
+	${XSPEC} -s tests/should.xspec
+	${XSPEC} -s tests/may.xspec
 
 schematron: source/profile.xml
 	${SAXON} -xsl:utils/schematron.xsl -o:source/profile.sch source/profile.xml
