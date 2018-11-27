@@ -1,0 +1,32 @@
+<description schematron="../source/profile.sch"
+             xmlns="http://www.jenitennison.com/xslt/xspec"
+             xmlns:mets="http://www.loc.gov/METS/"
+             xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <param name="phase" select="'MAY'"/>
+
+  <scenario label="Testing the restrictions of the structMap element">
+    <scenario label="no descriptive metadata for a div">
+      <context>
+        <mets:mets>
+          <mets:structMap TYPE="LOGICAL">
+            <mets:div TYPE="Monograph"/>
+          </mets:structMap>
+        </mets:mets>
+      </context>
+      <expect-assert id="structMap.assert.9"/>
+    </scenario>
+    <scenario label="no descriptive metadata for a div">
+      <context>
+        <mets:mets>
+          <mets:dmdSec ID="dmdSec"/>
+          <mets:structMap TYPE="LOGICAL">
+            <mets:div TYPE="Monograph" DMDID="dmdSec"/>
+          </mets:structMap>
+        </mets:mets>
+      </context>
+      <expect-not-assert id="structMap.assert.9"/>
+    </scenario>
+  </scenario>
+
+</description>
