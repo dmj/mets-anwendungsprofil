@@ -285,8 +285,10 @@
                     <html:ul>
                         <html:li>Das METS-Dokument muss einen &lt;structMap>-Abschnitt besitzen, dessen @TYPE-Attribut mit dem Wert 'PHYSICAL' belegt ist.</html:li>
                         <html:li>Diese &lt;structMap> besitzt ein &lt;mets:div>-Element, dessen @TYPE-Attribut mit dem Wert 'physSequence' belegt ist.</html:li>
+                        <html:li>Dieses &lt;mets:div>-Element muss ein @ID-Attribut besitzen.</html:li>
                         <html:li>Dieses &lt;div>-Element enthält weitere &lt;div>-Element, deren @TYPE-Attribut mit dem Wert 'page' belegt ist.</html:li>
                         <html:li>Diese &lt;div>-Elemente dürfen nur &lt;fptr>-Elemente enthalten.</html:li>
+                        <html:li>Jedes dieser &lt;div>-Element muss ein @ID-Attribut besitzen.</html:li>
                     </html:ul>
                 </description>
                 <tests>
@@ -298,11 +300,13 @@
                                 </sch:rule>
                                 <sch:rule context="mets:structMap[@TYPE = 'PHYSICAL']">
                                     <sch:assert test="count(mets:div[@TYPE = 'physSequence']) eq 1" id="structMap.assert.2"/>
+                                    <sch:assert test="mets:div[@TYPE = 'physSequence']/@ID" id="structMap.assert.2a"/>
                                 </sch:rule>
                                 <sch:rule context="mets:div[@TYPE = 'physSequence']">
-                                    <sch:assert test="count(mets:file[@TYPE = 'page']) ge 1" id="structMap.assert.3"/>
+                                    <sch:assert test="count(mets:div[@TYPE = 'page']) ge 1" id="structMap.assert.3"/>
                                     <sch:assert test="every $div in mets:div satisfies $div/@TYPE = 'page'" id="structMap.assert.4"/>
                                     <sch:assert test="every $div in mets:div satisfies empty($div/*[not(self::mets:fptr)])" id="structMap.assert.5"/>
+                                    <sch:assert test="every $div in mets:div satisfies $div/@ID" id="structMap.assert.5a"/>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
