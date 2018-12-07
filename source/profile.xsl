@@ -14,6 +14,7 @@
         <style type="text/css">
           body { max-width: 60em; margin: 0 auto; font-size: 14px; font-family: "Open Sans", sans; }
           ul { list-style: none; padding: 0; }
+          ul.styled { list-style: disc; padding-left: 2em; }
         </style>
       </head>
       <body>
@@ -26,6 +27,13 @@
           <xsl:value-of select="profile:abstract"/>
         </p>
         <xsl:apply-templates select="profile:contact"/>
+        <xsl:apply-templates select="profile:profile_context/profile:resource_model/node()"/>
+        <p>Es deckt folgende Anwendungsfälle ab:</p>
+        <ul class="styled">
+          <xsl:for-each select="profile:profile_context/profile:uses/profile:use">
+            <li><xsl:apply-templates/></li>
+          </xsl:for-each>
+        </ul>
         <h2>Externe Schemata</h2>
         <xsl:for-each select="profile:external_schema">
           <h3><xsl:value-of select="profile:name"/></h3>
@@ -45,10 +53,10 @@
               <small> (<xsl:value-of select="profile:maintenance_agency"/>)</small>
             </xsl:if>
           </h3>
-          <xsl:if test="profile:URL">
+          <xsl:if test="profile:URI">
             <dl>
               <dt>URL</dt>
-              <dd><xsl:value-of select="profile:URL"/></dd>
+              <dd><xsl:value-of select="profile:URI"/></dd>
             </dl>
           </xsl:if>
           <p><xsl:value-of select="profile:context"/></p>

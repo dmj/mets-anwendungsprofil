@@ -10,7 +10,7 @@
     STATUS="provisional" REGISTRATION="unregistered">
     <URI LOCTYPE="OTHER" OTHERLOCTYPE="URI" ASSIGNEDBY="local">tag:diglib.hab.de,2018:METS:v1</URI>
     <title>METS-Anwendungsprofil für Produkte der Massendigitalisierung</title>
-    <abstract>Dieses Dokument beschreibt die Struktur der METS-Datei für alle Produkte der Massendigitalisierung in der Wolfenbütteler Digitalen Bibliothek. Es gilt für alle Objekte, deren physische Struktur als Abfolge von Seiten beschrieben werden kann, die als je ein Image im TIFF-Format reproduziert werden.</abstract>
+    <abstract>Dieses Anwendungsprofil beschreibt das Archiv- und Präsentationsformat für alle Objekte der Massendigitalisierung, namentlich für digitalisierte Drucke, Inkunabeln, Handschriften und grafische Objekte wie Druckgrafiken, Zeichnungen usw.</abstract>
     <date>1970-01-01T00:00:00Z</date>
     <contact>
         <name>David Maus</name>
@@ -21,7 +21,16 @@
     </contact>
     <registration_info regDate="1970-01-01T00:00:00Z" regURI="#fixme"/>
     <related_profile/>
-    <profile_context/>
+    <profile_context>
+        <resource_model>
+            <html:p>Dieses Profile beschreibt die METS-Struktur eines <html:span lang="en">Dissemination Information Package</html:span> des OAIS Referenzmodells.</html:p>
+        </resource_model>
+        <uses>
+            <use>
+                <html:p>Datenbereitstellung nach <html:a href="http://iiif.io">IIIF</html:a></html:p>
+            </use>
+        </uses>
+    </profile_context>
     <external_schema ID="diglib-rightsmd">
         <name>Kanonisches RDF/XML administrativer Metadaten</name>
         <URL>http://uri.hab.de/instance/schema/diglib-rightsmd</URL>
@@ -502,6 +511,6 @@
         </description>
     </tool>
     <Appendix NUMBER="1">
-        <xi:include href="../examples/grafik_graph-res-b-81-2/mets.xml"/>
+        <xi:include href="../examples/drucke_db-755-1s/mets.xml"/>
     </Appendix>
 </METS_Profile>
