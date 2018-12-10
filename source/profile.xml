@@ -9,8 +9,8 @@
     xsi:schemaLocation="http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/mets.xsd http://www.loc.gov/METS_Profile/v2 http://www.loc.gov/standards/mets/profile_docs/mets.profile.v2-1.xsd"
     STATUS="provisional" REGISTRATION="unregistered">
     <URI LOCTYPE="OTHER" OTHERLOCTYPE="URI" ASSIGNEDBY="local">tag:diglib.hab.de,2018:METS:v1</URI>
-    <title>METS-Anwendungsprofil für Produkte der Massendigitalisierung</title>
-    <abstract>Dieses Anwendungsprofil beschreibt das Archiv- und Präsentationsformat für alle Objekte der Massendigitalisierung, namentlich für digitalisierte Drucke, Inkunabeln, Handschriften und grafische Objekte wie Druckgrafiken, Zeichnungen usw.</abstract>
+    <title>METS-Anwendungsprofil für die Anzeige von Produkten der Massendigitalisierung</title>
+    <abstract>Dieses Anwendungsprofil beschreibt das Präsentationsformat für Objekte der Massendigitalisierung, namentlich für digitalisierte Drucke, Inkunabeln, Handschriften und grafische Objekte wie Druckgrafiken, Zeichnungen usw.</abstract>
     <date>1970-01-01T00:00:00Z</date>
     <contact>
         <name>David Maus</name>
