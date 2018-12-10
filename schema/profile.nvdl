@@ -1,0 +1,35 @@
+<rules xmlns="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0">
+    <namespace ns="http://www.loc.gov/METS/">
+        <validate schema="mets.xsd">
+            <context path="amdSec/rightsMD/mdWrap/xmlData">
+                <mode>
+                    <namespace ns="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                        <attach/>
+                        <validate schema="http://uri.hab.de/instance/schema/diglib-rightsmd.rnc" schemaType="application/relax-ng-compact-syntax"/>
+                    </namespace>
+                    <anyNamespace>
+                        <attach/>
+                    </anyNamespace>
+                </mode>
+            </context>
+            <context path="dmdSec/mdWrap/xmlData">
+                <mode>
+                    <namespace ns="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                        <attach/>
+                        <validate schema="http://uri.hab.de/instance/schema/diglib-structmd.rnc" schemaType="application/relax-ng-compact-syntax"/>
+                    </namespace>
+                    <anyNamespace>
+                        <attach/>
+                    </anyNamespace>
+                </mode>
+            </context>
+        </validate>
+    </namespace>
+    <namespace ns="http://www.loc.gov/mix/v20">
+        <attach/>
+        <validate schema="mix.xsd"/>
+    </namespace>
+    <anyNamespace>
+        <allow/>
+    </anyNamespace>
+</rules>
