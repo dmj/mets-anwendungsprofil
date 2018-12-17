@@ -15,20 +15,6 @@
   </metsHdr>
 
   <amdSec>
-    <techMD ID="techMD.1">
-      <mdWrap MDTYPE="NISOIMG">
-        <xmlData>
-          <mix:mix>
-            <mix:BasicImageInformation>
-              <mix:BasicImageCharacteristics>
-                <mix:imageWidth>2000</mix:imageWidth>
-                <mix:imageHeight>2192</mix:imageHeight>
-              </mix:BasicImageCharacteristics>
-            </mix:BasicImageInformation>
-          </mix:mix>
-        </xmlData>
-      </mdWrap>
-    </techMD>
 
     <rightsMD ID="rightsMD.1">
       <mdWrap MDTYPE="OTHER" OTHERMDTYPE="RDF/XML" MIMETYPE="application/rdf+xml">
@@ -57,7 +43,7 @@
 
   <fileSec>
     <fileGrp USE="MASTER" ADMID="rightsMD.1">
-      <file ID="file.1" MIMETYPE="image/jp2" DMDID="techMD.1">
+      <file ID="file.1" MIMETYPE="image/jp2">
         <FLocat LOCTYPE="URL" xlink:href="00001.jp2"/>
       </file>
     </fileGrp>
@@ -65,7 +51,7 @@
 
   <structMap TYPE="PHYSICAL">
     <div TYPE="physSequence" ID="div.1">
-      <div ID="div.2" TYPE="page">
+      <div ID="div.2" TYPE="page" CONTENTIDS="">
         <fptr FILEID="file.1" ID="fptr.1"/>
       </div>
     </div>
