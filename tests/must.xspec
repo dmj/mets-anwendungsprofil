@@ -1,6 +1,8 @@
 <description schematron="../source/profile.sch"
              xmlns="http://www.jenitennison.com/xslt/xspec"
+             xmlns:exif="https://www.w3.org/2003/12/exif/ns#"
              xmlns:mets="http://www.loc.gov/METS/"
+             xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
              xmlns:xlink="http://www.w3.org/1999/xlink">
 
   <scenario label="Testing the restrictions of the METS root element">
@@ -328,6 +330,55 @@
         </mets:mets>
       </context>
       <expect-not-assert id="multiSection.assert.5"/>
+    </scenario>
+    <scenario label="a physical div element does not have a description of the page dimensions">
+      <context>
+        <mets:mets>
+          <mets:structMap TYPE="PHYSICAL">
+            <mets:div TYPE="page"/>
+          </mets:structMap>
+        </mets:mets>
+      </context>
+      <expect-assert id="multiSection.assert.10"/>
+    </scenario>
+    <scenario label="a physical div element has an incomplete description of the page dimensions">
+      <context>
+        <mets:mets>
+          <mets:dmdSec ID="dmd">
+            <mets:mdWrap TYPE="OTHER" OTHERMDTYPE="RDF">
+              <mets:xmlData>
+                <rdf:Description>
+                  <exif:width rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2000</exif:width>
+                </rdf:Description>
+              </mets:xmlData>
+            </mets:mdWrap>
+          </mets:dmdSec>
+          <mets:structMap TYPE="PHYSICAL">
+            <mets:div TYPE="page" DMDID="dmd"/>
+          </mets:structMap>
+        </mets:mets>
+      </context>
+      <expect-assert id="multiSection.assert.10"/>
+    </scenario>
+    <scenario label="a physical div element has a complete description of the page dimensions">
+      <context>
+        <mets:mets>
+          <mets:dmdSec ID="dmd">
+            <mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="RDF">
+              <mets:xmlData>
+                <rdf:Description>
+                  <exif:width rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2000</exif:width>
+                  <exif:height rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2000</exif:height>
+                </rdf:Description>
+              </mets:xmlData>
+            </mets:mdWrap>
+          </mets:dmdSec>
+          <mets:structMap TYPE="PHYSICAL">
+            <mets:div TYPE="page" DMDID="dmd"/>
+          </mets:structMap>
+        </mets:mets>
+      </context>
+      <expect-not-assert id="multiSection.assert.10"/>
     </scenario>
     <scenario label="at least one smLink element does not conntect a logical to a physical div element">
       <context>

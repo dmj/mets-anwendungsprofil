@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="profile.xsl"?>
-<METS_Profile xmlns="http://www.loc.gov/METS_Profile/v2" xmlns:html="http://www.w3.org/1999/xhtml"
+<METS_Profile xmlns="http://www.loc.gov/METS_Profile/v2" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:exif="https://www.w3.org/2003/12/exif/ns#"
     xmlns:sch="http://purl.oclc.org/dsdl/schematron"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -277,7 +277,7 @@
                         <html:li>Dieses &lt;mets:div>-Element muss ein @ID-Attribut besitzen.</html:li>
                         <html:li>Dieses &lt;div>-Element enthält weitere &lt;div>-Element, deren @TYPE-Attribut mit dem Wert 'page' belegt ist.</html:li>
                         <html:li>Diese &lt;div>-Elemente dürfen nur &lt;fptr>-Elemente enthalten.</html:li>
-                        <html:li>Jedes dieser &lt;div>-Element muss ein @ID-Attribut besitzen.</html:li>
+                        <html:li>Jedes dieser &lt;div>-Elemente muss ein @ID-Attribut besitzen.</html:li>
                     </html:ul>
                 </description>
                 <tests>
@@ -430,8 +430,26 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
+                    <html:p>Jedes &lt;div>-Element der physischen &lt;structMap> muss mit Metadaten beschrieben werden, die die Dimensionen der Seite angeben.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:structMap[@TYPE = 'PHYSICAL']/mets:div">
+                                    <sch:let name="dmdSec" value="/mets:mets/mets:dmdSec[@ID = tokenize(normalize-space(current()/@DMDID))]"/>
+                                    <sch:let name="dmdSecRdf" value="$dmdSec/mets:mdWrap[@MDTYPE = 'OTHER'][@OTHERMDTYPE = 'RDF']/mets:xmlData/rdf:Description"/>
+                                    <sch:assert test="exists($dmdSecRdf[exif:width and exif:height])" id="multiSection.assert.10"/>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
                     <html:ul>
-                        <html:li>Jedes &lt;smLink>-Element des &lt;structLink>-Abschnitts verbindet ein &lt;div>-Element der logischen mit einem oderer mehreren &lt;div>-Elementen der physischen &lt;structMap>.</html:li>
+                        <html:li>Jedes &lt;smLink>-Element des &lt;structLink>-Abschnitts verbindet ein &lt;div>-Element der logischen mit einem oder mehreren &lt;div>-Elementen der physischen &lt;structMap>.</html:li>
                         <html:li>Diese Verbindung geht immer vom &lt;div> der logischen zum &lt;div> der physischen &lt;structMap>.</html:li>
                     </html:ul>
                 </description>
