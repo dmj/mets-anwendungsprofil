@@ -1,6 +1,6 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-  <rewriteURI uriStartString="http://www.loc.gov/standards/mets/profile_docs/" rewritePrefix="schema/"/>
-  <rewriteURI uriStartString="http://www.w3.org/2001/" rewritePrefix="schema/"/>
-  <rewriteURI uriStartString="http://www.w3.org/2002/08/xhtml/" rewritePrefix="schema/"/>
-  <rewriteURI uriStartString="http://www.loc.gov/standards/xlink/" rewritePrefix="schema/"/>
+  <rewriteURI uriStartString="http://www.loc.gov/standards/mets/" rewritePrefix="schema/mets/"/>
+  <rewriteURI uriStartString="http://www.loc.gov/standards/xlink/" rewritePrefix="schema/xlink/"/>
+  <rewriteURI uriStartString="http://www.w3.org/2002/08/xhtml/" rewritePrefix="schema/xhtml/"/>
+  <uri name="http://www.w3.org/2001/xml.xsd" uri="schema/xml.xsd"/>
 </catalog>

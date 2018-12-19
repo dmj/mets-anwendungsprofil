@@ -7,17 +7,10 @@
 
   <xsl:template match="profile:METS_Profile">
     <xsl:variable name="root" select="."/>
-    <sch:schema queryBinding="xslt2" defaultPhase="MUST">
+    <sch:schema queryBinding="xslt2">
       <sch:title><xsl:value-of select="profile:title"/></sch:title>
       <xsl:for-each select="in-scope-prefixes(.)[not( . = ('xml', 'sch', ''))]">
         <sch:ns prefix="{.}" uri="{namespace-uri-for-prefix(., $root)}"/>
-      </xsl:for-each>
-      <xsl:for-each select="distinct-values(.//profile:requirement/@REQLEVEL)">
-        <sch:phase id="{.}">
-          <xsl:for-each select="$root//profile:test[../../@REQLEVEL = current()]">
-            <sch:active pattern="{generate-id()}"/>
-          </xsl:for-each>
-        </sch:phase>
       </xsl:for-each>
       <xsl:apply-templates/>
     </sch:schema>
@@ -25,8 +18,21 @@
 
   <xsl:template match="profile:test[@TESTLANGUAGE = 'Schematron']">
     <sch:pattern id="{generate-id()}">
-      <xsl:sequence select="profile:testWrap/profile:testXML/*"/>
+      <xsl:apply-templates select="profile:testWrap/profile:testXML/sch:*" mode="copy"/>
     </sch:pattern>
+  </xsl:template>
+
+  <xsl:template match="@* | node()" mode="copy">
+    <xsl:copy>
+      <xsl:apply-templates select="@* | node()" mode="#current"/>
+    </xsl:copy>
+  </xsl:template>
+
+  <xsl:template match="sch:assert | sch:report" mode="copy">
+    <xsl:copy>
+      <xsl:attribute name="role" select="if (ancestor::profile:requirement/@REQLEVEL eq 'MUST') then 'error' else 'warn'"/>
+      <xsl:apply-templates select="@* | node()" mode="#current"/>
+    </xsl:copy>
   </xsl:template>
 
   <xsl:template match="text()"/>

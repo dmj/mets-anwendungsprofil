@@ -4,14 +4,14 @@
     xmlns:sch="http://purl.oclc.org/dsdl/schematron"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:mets="http://www.loc.gov/METS/" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:mets="http://www.loc.gov/METS/" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:mix="http://www.loc.gov/mix/v20"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/mets.xsd http://www.loc.gov/METS_Profile/v2 http://www.loc.gov/standards/mets/profile_docs/mets.profile.v2-1.xsd"
+    xsi:schemaLocation="http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/version112/mets.xsd http://www.loc.gov/METS_Profile/v2 http://www.loc.gov/standards/mets/profile_docs/mets.profile.v2-1.xsd"
     STATUS="provisional" REGISTRATION="unregistered">
     <URI LOCTYPE="OTHER" OTHERLOCTYPE="URI" ASSIGNEDBY="local">tag:diglib.hab.de,2018:METS:v1</URI>
     <title>METS-Anwendungsprofil für die Anzeige von Produkten der Massendigitalisierung</title>
     <abstract>Dieses Anwendungsprofil beschreibt das Präsentationsformat für Objekte der Massendigitalisierung, namentlich für digitalisierte Drucke, Inkunabeln, Handschriften und grafische Objekte wie Druckgrafiken, Zeichnungen usw.</abstract>
-    <date>1970-01-01T00:00:00Z</date>
+    <date>2018-12-19T09:11:20+02:00</date>
     <contact>
         <name>David Maus</name>
         <institution>Herzog August Bibliothek Wolfenbüttel</institution>
@@ -19,7 +19,6 @@
         <phone>+49-5331-808-317</phone>
         <email>maus@hab.de</email>
     </contact>
-    <registration_info regDate="1970-01-01T00:00:00Z" regURI="#fixme"/>
     <related_profile/>
     <profile_context>
         <resource_model>
@@ -39,6 +38,10 @@
         <name>Kanonisches RDF/XML deskriptiver Metadaten von Objektstrukturen</name>
         <URL>http://uri.hab.de/instance/schema/diglib-structmd</URL>
     </external_schema>
+    <external_schema>
+        <name>NISO Metadata for Images in XML Schema</name>
+        <URL>http://www.loc.gov/standards/mix/</URL>
+    </external_schema>
     <description_rules/>
     <controlled_vocabularies>
         <vocabulary>
@@ -51,14 +54,16 @@
         <metsRootElement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Das &lt;mets> Wurzelelement muss ein @OBJID-Attribut mit dem lokalen Identifikator des Objekts besitzen.</html:p>
+                    <html:p>Das Wurzelelement besitzt ein @OBJID-Attribut mit dem lokalen Identifikator des Objekts.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="normalize-space(@OBJID)" id="metsRootElement.assert.1"/>
+                                    <sch:assert test="normalize-space(@OBJID)" id="metsRootElement.assert.1">
+                                        Das Wurzelelement besitzt ein @OBJID-Attribut mit dem lokalen Identifikator des Objekts.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -68,7 +73,7 @@
             <requirement REQLEVEL="MUST">
                 <description>
                     <html:p>
-                        Das &lt;mets> Wurzelelement muss ein @LABEL-Attribut mit einem das Objekt identifizierenden Namen besitzen. Der
+                        Das Wurzelelement besitzt ein @LABEL-Attribut mit einem das Objekt identifizierenden Namen. Der
                         Name wird in der Regel aus dem Namen der die Vorlage besitzenden Einrichtung und der Signatur der Vorlage gebildet.
                     </html:p>
                 </description>
@@ -77,7 +82,9 @@
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="normalize-space(@LABEL)" id="metsRootElement.assert.2"/>
+                                    <sch:assert test="normalize-space(@LABEL)" id="metsRootElement.assert.2">
+                                        Das Wurzelelement besitzt ein @LABEL-Attribut mit einem das Objekt identifizierenden Namen.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -86,14 +93,16 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Das &lt;mets>-Wurzelelement muss ein @PROFILE-Attribut mit dem Wert 'tag:diglib.hab.de,2018:METS:v1' besitzen.</html:p>
+                    <html:p>Das Wurzelelement besitzt ein @PROFILE-Attribut mit dem Wert "tag:diglib.hab.de,2018:METS:v1".</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="@PROFILE eq 'tag:diglib.hab.de,2018:METS:v1'" id="metsRootElement.assert.3"/>
+                                    <sch:assert test="@PROFILE eq 'tag:diglib.hab.de,2018:METS:v1'" id="metsRootElement.assert.3">
+                                        Das Wurzelelement besitzt ein @PROFILE-Attribut mit dem Wert "tag:diglib.hab.de,2018:METS:v1".
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -104,14 +113,16 @@
         <metsHdr>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Das METS-Dokument muss ein &lt;metsHdr>-Element enthalten.</html:p>
+                    <html:p>Das METS-Dokument enthält ein &lt;metsHdr>-Element.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="mets:metsHdr" id="metsHdr.assert.0"/>
+                                    <sch:assert test="mets:metsHdr" id="metsHdr.assert.0">
+                                        Das METS-Dokument enthält ein &lt;metsHdr>-Element.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -120,14 +131,16 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Das &lt;metsHdr>-Element muss das @CREATEDATE-Attribut besitzen.</html:p>
+                    <html:p>Das &lt;metsHdr>-Element besitzt ein @CREATEDATE-Attribut mit Datum und Uhrzeit der Dokumenterstellung.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:metsHdr">
-                                    <sch:assert test="normalize-space(@CREATEDATE)" id="metsHdr.assert.1"/> 
+                                    <sch:assert test="normalize-space(@CREATEDATE)" id="metsHdr.assert.1">
+                                        Das &lt;metsHdr>-Element besitzt ein @CREATEDATE-Attribut mit Datum und Uhrzeit der Dokumenterstellung.
+                                    </sch:assert> 
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -136,14 +149,16 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Das &lt;metsHdr>-Element muss ein &lt;agent>-Element mit @ROLE-Attribut "CUSTODIAN" und dem @TYPE-Attribut "ORGANIZATION" enthalten.</html:p>
+                    <html:p>Das &lt;metsHdr>-Element enthält ein &lt;agent>-Element, dessen Attribut @ROLE den Wert "CUSTODIAN" und dessen @TYPE-Attribut den Wert "ORGANIZATION" besitzt.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:metsHdr">
-                                    <sch:assert test="mets:agent[@ROLE = 'CUSTODIAN'][@TYPE = 'ORGANIZATION']" id="metsHdr.assert.2"/>
+                                    <sch:assert test="mets:agent[@ROLE = 'CUSTODIAN'][@TYPE = 'ORGANIZATION']" id="metsHdr.assert.2">
+                                        Das &lt;metsHdr>-Element enthält ein &lt;agent>-Element, dessen Attribut @ROLE den Wert "CUSTODIAN" und dessen @TYPE-Attribut den Wert "ORGANIZATION" besitzt.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -152,15 +167,16 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Das &lt;agent>-Element muss ein &lt;name>-Element mit dem Wert "Herzog August Bibliothek Wolfenbüttel" enthalten.</html:p>
+                    <html:p>Das &lt;agent>-Element enthält ein &lt;name>-Element mit dem Wert "Herzog August Bibliothek Wolfenbüttel".</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:agent[@ROLE = 'CUSTODIAN'][@TYPE = 'ORGANIZATION']">
-                                    <sch:assert
-                                        test="mets:name = 'Herzog August Bibliothek Wolfenbüttel'" id="metsHdr.assert.3"/>
+                                    <sch:assert test="mets:name = 'Herzog August Bibliothek Wolfenbüttel'" id="metsHdr.assert.3">
+                                        Das &lt;agent>-Element enthält ein &lt;name>-Element mit dem Wert "Herzog August Bibliothek Wolfenbüttel".
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -169,14 +185,16 @@
             </requirement>
             <requirement REQLEVEL="SHOULD">
                 <description>
-                    <html:p>Das &lt;metsHdr>-Element sollte das @LASTMODDATE mit Datum und Uhrzeit der letzten Dateimodifikation besitzen.</html:p>
+                    <html:p>Das &lt;metsHdr>-Element besitzt das Attribute @LASTMODDATE mit Datum und Uhrzeit der letzten Dateimodifikation.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron" >
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:metsHdr">
-                                    <sch:assert test="normalize-space(@LASTMODDATE)" id="metsHdr.assert.4"/>
+                                    <sch:assert test="normalize-space(@LASTMODDATE)" id="metsHdr.assert.4">
+                                        Das &lt;metsHdr>-Element besitzt das Attribute @LASTMODDATE mit Datum und Uhrzeit der letzten Dateimodifikation.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -187,14 +205,16 @@
         <amdSec>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Das METS-Dokument muss einen &lt;amdSec>-Abschnitt enthalten.</html:p>
+                    <html:p>Das METS-Dokument enthält einen &lt;amdSec>-Abschnitt.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="count(mets:amdSec) eq 1" id="amdSec.assert.1"/>
+                                    <sch:assert test="count(mets:amdSec) eq 1" id="amdSec.assert.1">
+                                        Das METS-Dokument enthält einen &lt;amdSec>-Abschnitt.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -203,14 +223,16 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Das &lt;amdSec>-Element muss mindestens einen &lt;rightsMD>-Abschnitt mit administrativen Metadaten enthalten.</html:p>
+                    <html:p>Das &lt;amdSec>-Element enthält einen &lt;rightsMD>-Abschnitt mit administrativen Metadaten.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:amdSec">
-                                    <sch:assert test="mets:rightsMD[mets:mdWrap[@MDTYPE = 'OTHER'][@OTHERMDTYPE = 'RDF']/mets:xmlData]" id="amdSec.assert.2"/>
+                                    <sch:assert test="count(mets:rightsMD[mets:mdWrap[@MDTYPE = 'OTHER'][@OTHERMDTYPE = 'RDF']/mets:xmlData]) eq 1" id="amdSec.assert.2">
+                                        Das &lt;amdSec>-Element enthält einen &lt;rightsMD>-Abschnitt mit administrativen Metadaten.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -221,14 +243,16 @@
         <fileSec>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Das &lt;fileSec>-Element muss einen &lt;fileGrp>-Abschnitt enthalten, dessen @USE-Attribut mit dem Wert 'MASTER' belegt ist.</html:p>
+                    <html:p>Das &lt;fileSec>-Element enthält einen &lt;fileGrp>-Abschnitt, dessen @USE-Attribut mit dem Wert 'MASTER' belegt ist.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:fileSec">
-                                    <sch:assert test="count(mets:fileGrp[@USE = 'MASTER']) eq 1" id="fileSec.assert.1"/>
+                                    <sch:assert test="count(mets:fileGrp[@USE = 'MASTER']) eq 1" id="fileSec.assert.1">
+                                        Das &lt;fileSec>-Element enthält einen &lt;fileGrp>-Abschnitt, dessen @USE-Attribut mit dem Wert 'MASTER' belegt ist.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -237,14 +261,16 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Das &lt;fileGrp>-Element darf nur &lt;file>-Element enthalten.</html:p>
+                    <html:p>Das &lt;fileGrp>-Element enthält nur &lt;file>-Elemente.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:fileGrp[@USE = 'MASTER']">
-                                    <sch:assert test="empty(*[not(self::mets:file)])" id="fileSec.assert.2"/>
+                                    <sch:assert test="empty(*[not(self::mets:file)])" id="fileSec.assert.2">
+                                        Das &lt;fileGrp>-Element enthält nur &lt;file>-Elemente.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -253,14 +279,16 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Das &lt;fileGrp>-Element muss mindestens ein &lt;file>-Element enthalten.</html:p>
+                    <html:p>Das &lt;fileGrp>-Element enthält mindestens ein &lt;file>-Element.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:fileGrp[@USE = 'MASTER']">
-                                    <sch:assert test="mets:file" id="fileSec.assert.3"/>
+                                    <sch:assert test="exists(mets:file)" id="fileSec.assert.3">
+                                        Das &lt;fileGrp>-Element enthält mindestens ein &lt;file>-Element.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -271,31 +299,16 @@
         <structMap>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:ul>
-                        <html:li>Das METS-Dokument muss einen &lt;structMap>-Abschnitt besitzen, dessen @TYPE-Attribut mit dem Wert 'PHYSICAL' belegt ist.</html:li>
-                        <html:li>Diese &lt;structMap> besitzt ein &lt;mets:div>-Element, dessen @TYPE-Attribut mit dem Wert 'physSequence' belegt ist.</html:li>
-                        <html:li>Dieses &lt;mets:div>-Element muss ein @ID-Attribut besitzen.</html:li>
-                        <html:li>Dieses &lt;div>-Element enthält weitere &lt;div>-Element, deren @TYPE-Attribut mit dem Wert 'page' belegt ist.</html:li>
-                        <html:li>Diese &lt;div>-Elemente dürfen nur &lt;fptr>-Elemente enthalten.</html:li>
-                        <html:li>Jedes dieser &lt;div>-Elemente muss ein @ID-Attribut besitzen.</html:li>
-                    </html:ul>
+                    <html:p>Das METS-Dokument enthält ein &lt;structMap>-Element, dessen @TYPE-Attribut mit dem Wert "PHYSICAL" belegt ist.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="count(mets:structMap[@TYPE = 'PHYSICAL']) eq 1" id="structMap.assert.1"/>
-                                </sch:rule>
-                                <sch:rule context="mets:structMap[@TYPE = 'PHYSICAL']">
-                                    <sch:assert test="count(mets:div[@TYPE = 'physSequence']) eq 1" id="structMap.assert.2"/>
-                                    <sch:assert test="mets:div[@TYPE = 'physSequence']/@ID" id="structMap.assert.2a"/>
-                                </sch:rule>
-                                <sch:rule context="mets:div[@TYPE = 'physSequence']">
-                                    <sch:assert test="count(mets:div[@TYPE = 'page']) ge 1" id="structMap.assert.3"/>
-                                    <sch:assert test="every $div in mets:div satisfies $div/@TYPE = 'page'" id="structMap.assert.4"/>
-                                    <sch:assert test="every $div in mets:div satisfies empty($div/*[not(self::mets:fptr)])" id="structMap.assert.5"/>
-                                    <sch:assert test="every $div in mets:div satisfies $div/@ID" id="structMap.assert.5a"/>
+                                    <sch:assert test="count(mets:structMap[@TYPE = 'PHYSICAL']) eq 1" id="structMap.assert.1">
+                                        Das METS-Dokument enthält ein &lt;structMap>-Element, dessen @TYPE-Attribut mit dem Wert "PHYSICAL" belegt ist.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -304,20 +317,91 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:ul>
-                        <html:li>Das METS-Dokument muss einen &lt;structMap>-Abschnitt besitzen, dessen @TYPE-Attribut mit dem Wert 'LOGICAL' belegt ist.</html:li>
-                        <html:li>Die in diesem Abschnitt enthaltenen &lt;div>-Elemente dürfen nur andere &lt;div>-Elemente enthalten.</html:li>
-                    </html:ul>
+                    <html:p>Die physische &lt;structMap> enthält ein &lt;div>-Element, das ein @ID-Attribut besitzt und dessen @TYPE-Attribut mit dem Wert "physSequence" belegt ist.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:structMap[@TYPE = 'PHYSICAL']">
+                                    <sch:assert test="count(mets:div[@TYPE = 'physSequence']) eq 1" id="structMap.assert.2">
+                                        Die physische &lt;structMap> enthält ein &lt;div>-Element, dessen @TYPE-Attribute mit dem Wert "physSequence" belegt ist.
+                                    </sch:assert>
+                                    <sch:assert test="mets:div[@TYPE = 'physSequence']/@ID" id="structMap.assert.2a">
+                                        Das &lt;div>-Element der physischen Sequence besitzt ein @ID-Attribut.
+                                    </sch:assert>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Das &lt;div>-Element der physischen Sequenz enthält nur weitere &lt;div>-Elemente, die ein @ID-Attribut besitzen und deren @TYPE-Attribut mit dem Wert "page" belegt ist.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:structMap[@TYPE = 'PHYSICAL']/mets:div[@TYPE = 'physSequence']">
+                                    <sch:assert test="every $div in * satisfies ($div/self::mets:div and $div/@TYPE = 'page' and $div/@ID)" id="structMap.assert.4">
+                                        Das &lt;div>-Element der physischen Sequenz enthält ausschließlich weitere &lt;div>-Elemente, die ein @ID-Attribut besitzen und deren @TYPE-Attribut mit dem Wert "page" belegt ist.
+                                    </sch:assert>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Die &lt;div>-Element der physischen Sequenz enthalten nur &lt;fptr>-Elemente.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:div[@TYPE = 'physSequence']/mets:div">
+                                    <sch:assert test="count(*) eq count(mets:fptr)">
+                                        Die &lt;div>-Element der physischen Sequenz enthalten nur &lt;fptr>-Elemente.
+                                    </sch:assert>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Das METS-Dokument enthält einen &lt;structMap>-Abschnitt, dessen @TYPE-Attribut mit dem Wert 'LOGICAL' belegt ist.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="count(mets:structMap[@TYPE = 'LOGICAL']) eq 1" id="structMap.assert.6"/>
+                                    <sch:assert test="count(mets:structMap[@TYPE = 'LOGICAL']) eq 1" id="structMap.assert.6">
+                                        Das METS-Dokument enthält einen &lt;structMap>-Abschnitt, dessen @TYPE-Attribut mit dem Wert 'LOGICAL' belegt ist.
+                                    </sch:assert>
                                 </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="MUST">
+                <description>
+                    <html:p>Die logische &lt;structMap> enthält nur &lt;div>-Elemente.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
                                 <sch:rule context="mets:structMap[@TYPE = 'LOGICAL']">
-                                    <sch:assert test="empty(.//*[not(self::mets:div)])" id="structMap.assert.7"/>
+                                    <sch:assert test="count(.//*) eq count(.//mets:div)">
+                                        Die logische &lt;structMap> enthält nur &lt;div>-Elemente.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -326,30 +410,16 @@
             </requirement>
             <requirement REQLEVEL="SHOULD">
                 <description>
-                    <html:p>Ein &lt;fptr>-Element sollte ein @ID-Attribut haben, aus dem die URI einer IIIF-Annotation gebildet werden kann.</html:p>
+                    <html:p>Das &lt;fptr>-Element besitzt ein @ID-Attribut.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:fptr">
-                                    <sch:assert test="@ID" id="structMap.assert.8"/>
-                                </sch:rule>
-                            </testXML>
-                        </testWrap>
-                    </test>
-                </tests>
-            </requirement>
-            <requirement REQLEVEL="MAY">
-                <description>
-                    <html:p>Ein &lt;div>-Element kann durch deskriptive Metadaten beschrieben werden, die im @DMDID-Attribut verknüpft sind.</html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="Schematron">
-                        <testWrap>
-                            <testXML>
-                                <sch:rule context="mets:div">
-                                    <sch:assert test="normalize-space(@DMDID)" id="structMap.assert.9"/>
+                                    <sch:assert test="@ID" id="structMap.assert.8">
+                                        Das &lt;fptr>-Element besitzt ein @ID-Attribut.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -360,16 +430,16 @@
         <structLink>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:ul>
-                        <html:li>Das METS-Dokument muss einen &lt;structLink>-Abschnitt besitzen.</html:li>
-                    </html:ul>
+                    <html:p>Das METS-Dokument besitzt einen &lt;structLink>-Abschnitt.</html:p>                    
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:mets">
-                                    <sch:assert test="count(mets:structLink) eq 1" id="structLink.assert.1"/>
+                                    <sch:assert test="count(mets:structLink) eq 1" id="structLink.assert.1">
+                                        Das METS-Dokument besitzt einen &lt;structLink>-Abschnitt.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -380,15 +450,16 @@
         <multiSection>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Das &lt;fileGrp>-Element muss mit administrativen Metadaten verknüpft sein.</html:p>
+                    <html:p>Das &lt;fileGrp>-Element ist mit administrativen Metadaten verknüpft.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:fileGrp[@USE = 'MASTER']">
-                                    <sch:assert test="normalize-space(@ADMID)" id="multiSection.assert.1"/>
-                                    <sch:assert test="/mets:mets/mets:amdSec/mets:rightsMD[@ID = tokenize(normalize-space(current()/@ADMID), ' ')]" id="multiSection.assert.2"/>
+                                    <sch:assert test="/mets:mets/mets:amdSec/mets:rightsMD[@ID = tokenize(normalize-space(current()/@ADMID), ' ')]" id="multiSection.assert.2">
+                                        Das &lt;fileGrp>-Element ist mit administrativen Metadaten verknüpft.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -397,31 +468,16 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Jedes &lt;file>-Element muss mit technischen Metadaten verknüpft sein.</html:p>
-                </description>
-                <tests>
-                    <test TESTLANGUAGE="Schematron">
-                        <testWrap>
-                            <testXML>
-                                <sch:rule context="mets:file">
-                                    <sch:assert test="normalize-space(@ADMID)" id="multiSection.assert.3"/>
-                                    <sch:assert test="/mets:mets/mets:amdSec/mets:techMD[@ID = tokenize(normalize-space(current()/@ADMID), ' ')]" id="multiSection.assert.4"/>
-                                </sch:rule>
-                            </testXML>
-                        </testWrap>
-                    </test>
-                </tests>
-            </requirement>
-            <requirement REQLEVEL="MUST">
-                <description>
-                    <html:p>Alle Werte des @TYPE-Attributs eines &lt;div>-Elements müssen der <html:a href="http://uri.hab.de/ontology/diglib-struct">Strukturdatenontologie</html:a> entnommen sein.</html:p>
+                    <html:p>Alle Werte des @TYPE-Attributs eines &lt;div>-Elements sind der Strukturdatenontologie entnommen sein.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="mets:div[@TYPE]">
-                                    <sch:assert test="concat('http://uri.hab.de/ontology/diglib-struct#', @TYPE) = doc('http://uri.hab.de/ontology/diglib-struct.rdf')//rdfs:Class/@rdf:about" id="multiSection.assert.5"/>
+                                    <sch:assert test="concat('http://uri.hab.de/ontology/diglib-struct#', @TYPE) = doc('http://uri.hab.de/ontology/diglib-struct.rdf')//rdfs:Class/@rdf:about" id="multiSection.assert.5">
+                                        Alle Werte des @TYPE-Attributs eines &lt;div>-Elements sind der Strukturdatenontologie entnommen sein.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -430,16 +486,18 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Jedes &lt;div>-Element der physischen &lt;structMap> muss mit Metadaten beschrieben werden, die die Dimensionen der Seite angeben.</html:p>
+                    <html:p>Jedes &lt;div>-Element der physischen &lt;structMap> ist mit Metadaten beschrieben, die die Dimensionen der Seite angeben.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
-                                <sch:rule context="mets:structMap[@TYPE = 'PHYSICAL']/mets:div">
+                                <sch:rule context="mets:structMap[@TYPE = 'PHYSICAL']/mets:div/mets:div">
                                     <sch:let name="dmdSec" value="/mets:mets/mets:dmdSec[@ID = tokenize(normalize-space(current()/@DMDID))]"/>
                                     <sch:let name="dmdSecRdf" value="$dmdSec/mets:mdWrap[@MDTYPE = 'OTHER'][@OTHERMDTYPE = 'RDF']/mets:xmlData/rdf:Description"/>
-                                    <sch:assert test="exists($dmdSecRdf[exif:width and exif:height])" id="multiSection.assert.10"/>
+                                    <sch:assert test="exists($dmdSecRdf[exif:width and exif:height])" id="multiSection.assert.10">
+                                        Jedes &lt;div>-Element der physischen &lt;structMap> ist mit Metadaten beschrieben, die die Dimensionen der Seite angeben.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -448,18 +506,20 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:ul>
-                        <html:li>Jedes &lt;smLink>-Element des &lt;structLink>-Abschnitts verbindet ein &lt;div>-Element der logischen mit einem oder mehreren &lt;div>-Elementen der physischen &lt;structMap>.</html:li>
-                        <html:li>Diese Verbindung geht immer vom &lt;div> der logischen zum &lt;div> der physischen &lt;structMap>.</html:li>
-                    </html:ul>
+                    <html:p>
+                        Jedes &lt;smLink>-Element des &lt;structLink>-Abschnitts verbindet ein &lt;div>-Element der logischen mit einem oder mehreren &lt;div>-Elementen der physischen &lt;structMap>. 
+                    </html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
-                                <sch:rule context="mets:structLink">
-                                    <sch:assert test="every $link in mets:smLink satisfies /mets:mets/mets:structMap[@TYPE = 'LOGICAL']//mets:div[@ID = $link/@xlink:from]" id="multiSection.assert.6"/>
-                                    <sch:assert test="every $link in mets:smLink satisfies /mets:mets/mets:structMap[@TYPE = 'PHYSICAL']//mets:div[@ID = $link/@xlink:to]" id="multiSection.assert.7"/>
+                                <sch:rule context="mets:structLink/mets:smLink">
+                                    <sch:let name="logical" value="/mets:mets/mets:structMap[@TYPE = 'LOGICAL']//mets:div/@ID"/>
+                                    <sch:let name="physical" value="/mets:mets/mets:structMap[@TYPE = 'PHYSICAL']//mets:div/@ID"/>
+                                    <sch:assert test="@xlink:from = $logical and @xlink:to = $physical">
+                                        Jedes &lt;smLink>-Element des &lt;structLink>-Abschnitts verbindet ein &lt;div>-Element der logischen mit einem oder mehreren &lt;div>-Elementen der physischen &lt;structMap>.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -468,14 +528,16 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Die Werte eines @DMDID-Attributs müssen ein &lt;dmdSec>-Element referenzieren.</html:p>
+                    <html:p>Die Werte eines @DMDID-Attributs referenzieren ein &lt;dmdSec>-Element.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="*[@DMDID]">
-                                    <sch:assert test="exists(//mets:dmdSec[@ID = tokenize(normalize-space(current()/@DMDID), ' ')])" id="multiSection.assert.8"/>
+                                    <sch:assert test="exists(//mets:dmdSec[@ID = tokenize(normalize-space(current()/@DMDID), ' ')])" id="multiSection.assert.8">
+                                        Die Werte eines @DMDID-Attributs referenzieren ein &lt;dmdSec>-Element.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -484,14 +546,34 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Die Werte eines @ADMID-Attributs müssen eine Abschnitt innerhalb des &lt;amdSec>-Elements referenzieren.</html:p>
+                    <html:p>Die Werte eines @ADMID-Attributs referenzieren ein Element innerhalb des &lt;amdSec>-Elements.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
                         <testWrap>
                             <testXML>
                                 <sch:rule context="*[@ADMID]">
-                                    <sch:assert test="exists(//mets:amdSec/mets:*[@ID = tokenize(normalize-space(current()/@ADMID), ' ')])" id="multiSection.assert.9"/>
+                                    <sch:assert test="exists(//mets:amdSec/mets:*[@ID = tokenize(normalize-space(current()/@ADMID), ' ')])" id="multiSection.assert.9">
+                                        Die Werte eines @ADMID-Attributs referenzieren ein Element innerhalb des &lt;amdSec>-Elements.
+                                    </sch:assert>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="SHOULD">
+                <description>
+                    <html:p>Das &lt;file>-Element ist mit technischen Bildmetadaten verknüpft.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:file">
+                                    <sch:assert test="exists(//mets:amdSec/mets:techMD[@ID = tokenize(normalize-space(current()/@ADMID))]/mets:mdWrap[@MDTYPE = 'NISOIMG']/mets:xmlData/mix:mix)" id="multiSection.assert.11">
+                                        Das &lt;file>-Element ist mit technischen Bildmetadaten verknüpft.
+                                    </sch:assert>
                                 </sch:rule>
                             </testXML>
                         </testWrap>
@@ -504,6 +586,7 @@
     <tool>
         <name>Validierende XProc 1.0 Pipeline</name>
         <agency>Herzog August Bibliothek Wolfenbüttel</agency>
+        <URI>tools/validate-profile.xpl</URI>
         <description>
             <html:p>Validiert eine METS-Datei gegen die hier aufgeführten Regeln.</html:p>
         </description>

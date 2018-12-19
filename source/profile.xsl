@@ -81,6 +81,18 @@
     <dl>
       <xsl:for-each select="profile:testWrap/profile:testXML/sch:rule">
         <dt><xsl:value-of select="@context"/></dt>
+        <xsl:if test="sch:let">
+          <dd>
+            <p>
+              <xsl:for-each select="sch:let">
+                $<xsl:value-of select="@name"/> = <xsl:value-of select="@value"/>
+                <xsl:if test="position() != last()">
+                  <br/>
+                </xsl:if>
+              </xsl:for-each>
+            </p>
+          </dd>
+        </xsl:if>
         <xsl:for-each select="sch:assert">
           <dd>⊦ <xsl:value-of select="@test"/></dd>
         </xsl:for-each>

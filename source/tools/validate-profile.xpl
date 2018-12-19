@@ -11,10 +11,10 @@
 
   <p:xslt name="extract-schematron">
     <p:input port="source">
-      <p:document href="profile.xml"/>
+      <p:document href="../profile.xml"/>
     </p:input>
     <p:input port="stylesheet">
-      <p:document href="../utils/schematron.xsl"/>
+      <p:document href="extract-schematron.xsl"/>
     </p:input>
     <p:input port="parameters">
       <p:empty/>
@@ -26,7 +26,7 @@
       <p:pipe step="main" port="source"/>
     </p:input>
     <p:input port="schema">
-      <p:document href="../schema/mets.xsd"/>
+      <p:document href="http://www.loc.gov/standards/mets/version112/mets.xsd"/>
     </p:input>
   </p:validate-with-xml-schema>
 
