@@ -1,11 +1,13 @@
 <mets OBJID="drucke/db-755-1s" PROFILE="tag:diglib.hab.de,2018:METS:v1"
       LABEL="Herzog August Bibliothek Wolfenbüttel, M: Db 755 (1)"
       xmlns="http://www.loc.gov/METS/"
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
       xmlns:dct="http://purl.org/dc/terms/"
       xmlns:exif="https://www.w3.org/2003/12/exif/ns#"
       xmlns:foaf="http://xmlns.com/foaf/0.1/"
       xmlns:marcrel="http://id.loc.gov/vocabulary/relators/"
       xmlns:mix="http://www.loc.gov/mix/v20"
+      xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
       xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
       xmlns:skos="http://www.w3.org/2004/02/skos/core#"
       xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -23,6 +25,24 @@
           <exif:width rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2602</exif:width>
           <exif:height rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2857</exif:height>
         </rdf:Description>
+      </xmlData>
+    </mdWrap>
+  </dmdSec>
+  
+  <dmdSec ID="id.3589dd5f-742e-48c6-ba1e-b97669e99ee9">
+    <mdWrap MDTYPE="DC">
+      <xmlData>
+        <oai_dc:dc>
+          <dc:title>Rede, welche nach der Wiederaufrichtung des, vom Feuer stark beschädigten und hiedurch unwohnbar gemachten Bückingschen Hauses in Wolfenbüttel abgelesen wurde den 9. September 1758</dc:title>
+          <dc:format>8 Seiten, 4°</dc:format>
+          <dc:publisher>[Erscheinungsort nicht ermittelbar] : [Verlag nicht ermittelbar]</dc:publisher>
+          <dc:identifier>(vd18)1294727X</dc:identifier>
+          <dc:identifier>(fingerprint)chie chen ufil rmn. C 1758Q</dc:identifier>
+          <dc:language>ger</dc:language>
+          <dc:creator>Bücking, Heinrich Wilhelm, ca. 1709-nach 1765</dc:creator>
+          <dc:type>(aad)Gelegenheitsschrift</dc:type>
+          <dc:type>(aad)Rede</dc:type>oai_dc:dc>
+        </oai_dc:dc>
       </xmlData>
     </mdWrap>
   </dmdSec>
@@ -110,7 +130,7 @@
   </fileSec>
 
   <structMap TYPE="PHYSICAL">
-    <div TYPE="physSequence" ID="id.61407213-c91b-49fa-b687-1f8b0f5f328a">
+    <div TYPE="physSequence" ID="id.61407213-c91b-49fa-b687-1f8b0f5f328a" DMDID="id.3589dd5f-742e-48c6-ba1e-b97669e99ee9">
       <div ID="id.5b5788c7-aca8-4231-b725-6475647154d3" TYPE="page" DMDID="id.ddd3d63a-fae1-487a-8572-794702a6f770">
         <fptr FILEID="drucke_db-755-1s_00001" ID="id.64456514-f855-4e88-a119-5b7fa7bf9097"/>
       </div>
