@@ -468,7 +468,7 @@
             </requirement>
             <requirement REQLEVEL="MUST">
                 <description>
-                    <html:p>Alle Werte des @TYPE-Attributs eines &lt;div>-Elements sind der Strukturdatenontologie entnommen sein.</html:p>
+                    <html:p>Alle Werte des @TYPE-Attributs eines &lt;div>-Elements sind der Strukturdatenontologie entnommen.</html:p>
                 </description>
                 <tests>
                     <test TESTLANGUAGE="Schematron">
@@ -476,7 +476,7 @@
                             <testXML>
                                 <sch:rule context="mets:div[@TYPE]">
                                     <sch:assert test="concat('http://uri.hab.de/ontology/diglib-struct#', @TYPE) = doc('http://uri.hab.de/ontology/diglib-struct.rdf')//rdfs:Class/@rdf:about" id="multiSection.assert.5">
-                                        Alle Werte des @TYPE-Attributs eines &lt;div>-Elements sind der Strukturdatenontologie entnommen sein.
+                                        Alle Werte des @TYPE-Attributs eines &lt;div>-Elements sind der Strukturdatenontologie entnommen.
                                     </sch:assert>
                                 </sch:rule>
                             </testXML>
@@ -573,6 +573,24 @@
                                 <sch:rule context="mets:file">
                                     <sch:assert test="exists(//mets:amdSec/mets:techMD[@ID = tokenize(normalize-space(current()/@ADMID))]/mets:mdWrap[@MDTYPE = 'NISOIMG']/mets:xmlData/mix:mix)" id="multiSection.assert.11">
                                         Das &lt;file>-Element ist mit technischen Bildmetadaten verknüpft.
+                                    </sch:assert>
+                                </sch:rule>
+                            </testXML>
+                        </testWrap>
+                    </test>
+                </tests>
+            </requirement>
+            <requirement REQLEVEL="SHOULD">
+                <description>
+                    <html:p>Die Wurzel der physischen &lt;structMap>-Elements ist mit einer Objektbeschreibung in OAI Dublin Core verknüpft.</html:p>
+                </description>
+                <tests>
+                    <test TESTLANGUAGE="Schematron">
+                        <testWrap>
+                            <testXML>
+                                <sch:rule context="mets:structMap[@TYPE = 'PHYSICAL']/mets:div[1]">
+                                    <sch:assert test="exists(/mets:mets/mets:dmdSec[@ID = tokenize(normalize-space(current()/@DMDID))]/mets:mdWrap[@MDTYPE = 'DC'])">
+                                        Die Wurzel der physischen &lt;structMap> ist mit einer Objektbeschreibung in OAI Dublin Core verknüpft.
                                     </sch:assert>
                                 </sch:rule>
                             </testXML>
